@@ -121,6 +121,7 @@ class MainActivity : ComponentActivity() {
             e.printStackTrace()
         }
 
+
     }
 
     private fun setUpAdapterData(listData: List<Detail>){
