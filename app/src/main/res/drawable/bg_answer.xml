@@ -6,8 +6,8 @@
         android:radius="@dimen/_5ssp" />
 
     <stroke android:width="2px"
-        android:color="@color/button_bg" />
+        android:color="@color/lightPinkColor" />
 
-    <solid android:color="@color/button_bg"/>
+    <solid android:color="@color/lightPinkColor"/>
 
 </shape>

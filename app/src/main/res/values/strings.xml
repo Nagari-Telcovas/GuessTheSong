@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">GuessTheSong</string>
     <string name="submit_name">Submit</string>
-
+    <string name="guessTheSong">Guess The Song</string>
+    <string name="skip">Skip</string>
 </resources>

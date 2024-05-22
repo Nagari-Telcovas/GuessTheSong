@@ -11,7 +11,8 @@
     <color name="body_bg">#580055 </color>
     <color name="button_bg">#FF00F5 </color>
     <color name="yellow_bg">#FFE500 </color>
-
+    <color name="song_bg">#C58BC3</color>
+    <color name="lightPinkColor">#FFD6FD</color>
 
 
 </resources>
