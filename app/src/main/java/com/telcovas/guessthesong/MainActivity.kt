@@ -4,9 +4,7 @@ import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import androidx.activity.ComponentActivity
-import androidx.appcompat.widget.AppCompatImageView
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -16,25 +14,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.telcovas.guessthesong.model.AnswerAdapter
 import com.telcovas.guessthesong.model.Detail
-import com.telcovas.guessthesong.model.Quizinfo
 import com.telcovas.guessthesong.model.SongsList
 import com.telcovas.guessthesong.ui.theme.GuessTheSongTheme
-import java.io.File
+import de.hdodenhof.circleimageview.CircleImageView
 
 class MainActivity : ComponentActivity() {
 
     lateinit var setupAutoMoneyAdapter: AnswerAdapter
 
-    private lateinit var playimg1: AppCompatImageView
+    private lateinit var playimg1: CircleImageView
     private lateinit var selectAmountList: RecyclerView
     lateinit var mediaPlayer: MediaPlayer
 
     lateinit var user:SongsList
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.layout_dashboard)
+        setContentView(R.layout.activity_main)
 
-        playimg1 = findViewById(R.id.playimg1)
+        playimg1 = findViewById(R.id.playSong)
         playimg1.setOnClickListener {
           playAudio()
         }
