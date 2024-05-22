@@ -1,0 +1,43 @@
+{
+  "status":true,
+  "message":"Success",
+  "response":[
+    {"songurl":"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+
+      "details":["a1",
+        "a2",
+        "test",
+        "test4"]
+    },
+    {"songurl":"919666636715",
+
+      "details":["a1",
+        "a2",
+        "test",
+        "test4"]
+    },
+    {"songurl":"919666636715",
+
+      "details":["a1",
+        "a2",
+        "test",
+        "test4"]
+    },{"songurl":"919666636715",
+
+      "details":["a1",
+        "a2",
+        "test",
+        "test4"]
+    }
+  ,{"songurl":"919666636715",
+
+      "details":["a1",
+        "a2",
+        "test",
+        "test4"]
+    }
+
+  ]
+
+
+}

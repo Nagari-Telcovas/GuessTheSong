@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/body_bg"
+    >
+    <include android:id="@+id/toolbarLayout"
+        layout="@layout/toolbar_title"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        app:layout_constrainedHeight="false"
+        android:layout_marginTop="@dimen/_65sdp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarLayout">
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/_5sdp">
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/playerLayout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_85ssp"
+                android:layout_margin="@dimen/_5sdp"
+                app:cardBackgroundColor="@color/body_bg"
+                app:cardCornerRadius="@dimen/_4sdp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                >
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/walletLayout1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    app:layout_constraintTop_toBottomOf="parent">
+
+                    <RelativeLayout
+                        android:id="@+id/totalPriceLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="parent">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/totalPayment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/app_name"
+                            android:textColor="@color/body_bg"
+                            android:textSize="@dimen/_10sdp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toLeftOf="@+id/finalAmount"
+                            android:text="$"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/finalAmount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:text=""
+                            android:textColor="@color/body_bg"
+                            android:textSize="@dimen/_10sdp" />
+                    </RelativeLayout>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/moneyLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/_4sdp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/playerLayout"
+               >
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/walletLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    app:layout_constraintTop_toBottomOf="@+id/playerLayout">
+
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/selectAmountList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_15ssp"
+                        android:layout_marginTop="@dimen/_15ssp"
+                        android:layout_marginEnd="@dimen/_15ssp"
+                        android:orientation="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constrainedHeight="true"
+                        tools:itemCount="4"
+                        tools:listitem="@layout/item_answer"
+                        tools:ignore="MissingConstraints" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/continueButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_15ssp"
+                        android:layout_marginTop="@dimen/_25ssp"
+                        android:layout_marginEnd="@dimen/_25sdp"
+                        android:background="@drawable/button_bg"
+                        android:paddingStart="@dimen/_15sdp"
+                        android:paddingTop="@dimen/_15sdp"
+                        android:paddingEnd="@dimen/_15sdp"
+                        android:paddingBottom="@dimen/_15sdp"
+                        android:text="@string/app_name"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_15sdp"
+                        android:gravity="center"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/selectAmountList" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
