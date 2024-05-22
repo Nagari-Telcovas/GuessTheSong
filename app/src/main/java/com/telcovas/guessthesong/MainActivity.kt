@@ -28,6 +28,8 @@ class MainActivity : ComponentActivity() {
     private lateinit var playimg1: AppCompatImageView
     private lateinit var selectAmountList: RecyclerView
     lateinit var mediaPlayer: MediaPlayer
+
+    lateinit var user:SongsList
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_dashboard)
@@ -51,7 +53,7 @@ class MainActivity : ComponentActivity() {
             val jsonString = file.readText()*/
 
             val jsonString = readFromAsset()
-            val user = Gson().fromJson(jsonString, SongsList::class.java)
+             user = Gson().fromJson(jsonString, SongsList::class.java)
 
 
             setUpAdapterData(user.response.get(0).details)
@@ -67,7 +69,7 @@ class MainActivity : ComponentActivity() {
 
 
     }
-    private fun readFromAsset1(): String {
+    private fun readFromAsset(): String {
         val file_name = "songs.json"
         val bufferReader = application.assets.open(file_name).bufferedReader()
         val data = bufferReader.use {
@@ -78,7 +80,7 @@ class MainActivity : ComponentActivity() {
         return data;
     }
 
-    private fun readFromAsset(): String {
+    private fun readFromAsset1(): String {
         val file_name = "quizlist.json"
         val bufferReader = application.assets.open(file_name).bufferedReader()
         val data = bufferReader.use {
@@ -90,7 +92,9 @@ class MainActivity : ComponentActivity() {
     }
     fun playAudio()
     {
-        var audioUrl = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+
+        var audioUrl =  user.response.get(0).songurl
+       // var audioUrl = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
 
         // on below line we are setting audio stream
         // type as stream music on below line.
