@@ -1,6 +1,7 @@
 package com.telcovas.guessthesong.model
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,8 +25,9 @@ class AnswerAdapter(private val context: Context, val priceList: List<Detail>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
-        holder?.currentText?.text =priceList.get(0).option1
+        Log.d("PriceListDetails11", priceList.toString())
+        holder?.currentText?.text =priceList.get(position).option1
+        // holder?.currentText?.text =priceList.get(0).option1
         holder?.itemView?.setOnClickListener {
         //    selectedItemPos = holder.absoluteAdapterPosition
             lastItemSelectedPos = if(lastItemSelectedPos == -1)

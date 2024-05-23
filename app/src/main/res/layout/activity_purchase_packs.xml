@@ -20,17 +20,43 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbarLayout"
         app:layout_constraintBottom_toBottomOf="parent">
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/quizeLeftText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/quizLeft"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:textColor="@color/yellow_bg"
+            android:textSize="@dimen/_18ssp"
+            app:fontFamily="@font/kavoon"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/quizePacksText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/quizPacks"
+            android:layout_marginLeft="@dimen/_15sdp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12ssp"
+            app:fontFamily="@font/kavoon"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/quizeLeftText" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/selectAmountList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constrainedHeight="true"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/quizePacksText"
             tools:itemCount="4"
             tools:listitem="@layout/item_purchase_packs" />
 

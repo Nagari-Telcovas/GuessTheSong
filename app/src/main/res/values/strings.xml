@@ -3,6 +3,8 @@
     <string name="submit_name">Submit</string>
     <string name="guessTheSong">Guess The Song</string>
     <string name="skip">Skip</string>
+    <string name="quizLeft">You have 0 Quiz Left!</string>
+    <string name="quizPacks">Purchase Quiz Packs Now:</string>
     <string name="standard">Standard</string>
     <string name="songs">Songs</string>
     <string name="buyNow">Buy Now</string>
