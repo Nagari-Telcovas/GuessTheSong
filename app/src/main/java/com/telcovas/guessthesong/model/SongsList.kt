@@ -1,9 +1,9 @@
 package com.telcovas.guessthesong.model
 
-data class SongsList( val status: String,
-                      val message: String,
-                      val response: List<Quizinfo>
-                     )
+data class SongsList(
+    val status: String,
+    val message: String,
+    val response: List<Quizinfo>)
 
 data class Quizinfo(
     val songurl: String,
@@ -12,7 +12,11 @@ data class Quizinfo(
 
 data class Detail(
     val option1: String,
+    val type1: String,
+)
+/*data class Detail(
+    val option1: String,
     val option2: String,
     val option3: String,
     val option4: String
-)
+)*/

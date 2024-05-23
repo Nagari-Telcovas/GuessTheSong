@@ -26,7 +26,8 @@ class AnswerAdapter(private val context: Context, val priceList: List<Detail>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Log.d("PriceListDetails11", priceList.toString())
-        holder?.currentText?.text =priceList.get(position).option1
+        holder?.currentText?.text = priceList.get(position).type1
+        holder?.contentQuestion?.text = priceList.get(position).option1
         // holder?.currentText?.text =priceList.get(0).option1
         holder?.itemView?.setOnClickListener {
         //    selectedItemPos = holder.absoluteAdapterPosition
@@ -42,6 +43,7 @@ class AnswerAdapter(private val context: Context, val priceList: List<Detail>) :
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val currentText = view.findViewById(R.id.currentText) as AppCompatTextView
+        val contentQuestion = view.findViewById(R.id.contentQuestion) as AppCompatTextView
     }
 
     override fun getItemViewType(position: Int): Int {

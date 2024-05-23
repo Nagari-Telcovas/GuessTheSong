@@ -1,0 +1,14 @@
+{
+"status":true,
+"message":"Success",
+"response":[
+{"songurl":"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+
+"details":[{"option1":"Shape of You"},
+  {"option1":"Billie Jean"},
+  {"option1":"Counting Stars"},
+  {"option1":"You and I"}]
+}
+]
+
+}

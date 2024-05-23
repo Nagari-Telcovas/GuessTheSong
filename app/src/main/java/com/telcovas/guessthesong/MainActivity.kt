@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.telcovas.guessthesong.model.AnswerAdapter
 import com.telcovas.guessthesong.model.Detail
+import com.telcovas.guessthesong.model.Quizinfo
 import com.telcovas.guessthesong.model.SongsList
 import com.telcovas.guessthesong.purchasePacks.PurchasePacksActivity
 import com.telcovas.guessthesong.ui.theme.GuessTheSongTheme
@@ -59,9 +60,9 @@ class MainActivity : ComponentActivity() {
             val jsonString = file.readText()*/
             val jsonString = readFromAsset()
              user = Gson().fromJson(jsonString, SongsList::class.java)
-
-            setUpAdapterData(user.response.get(0).details)
-            Log.e("songurl",":"+user.response.get(0).details)
+            setUpAdapterData(user.response)
+          //  setUpAdapterData(user.response.get(0).details)
+            Log.e("songurl",":"+user.response)
             // on below line we are setting audio
 
         } catch (e: Exception) {
@@ -71,7 +72,7 @@ class MainActivity : ComponentActivity() {
         }
     }
     private fun readFromAsset(): String {
-        val file_name = "songs.json"
+        val file_name = "songsupdate.json"
         val bufferReader = application.assets.open(file_name).bufferedReader()
         val data = bufferReader.use {
             it.readText()
@@ -121,8 +122,11 @@ class MainActivity : ComponentActivity() {
 
     }
 
-    private fun setUpAdapterData(listData: List<Detail>){
-            setupAutoMoneyAdapter = AnswerAdapter(this, listData)
+    private fun setUpAdapterData(listData: List<Quizinfo>){
+        var quizListData =listData[0].details as ArrayList<Detail>
+        //var quizListData22 =quizListData.get(0).option1 as ArrayList<Detail>
+        Log.d("SongUrl22", quizListData.toString())
+            setupAutoMoneyAdapter = AnswerAdapter(this, quizListData)
             selectAmountList.adapter = setupAutoMoneyAdapter
     }
 }
