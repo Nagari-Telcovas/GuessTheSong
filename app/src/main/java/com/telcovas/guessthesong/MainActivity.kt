@@ -145,10 +145,10 @@ class MainActivity : ComponentActivity() {
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
         text = stringResource(id = R.string.app_name),
-        modifier = modifier.fillMaxSize(),
+     /*   modifier = modifier.fillMaxSize(),
         color = colorResource(id = R.color.body_bg),
         fontFamily = (FontFamily(Font(R.font.kavoon))),
-        fontSize = 18.sp
+        fontSize = 18.sp*/
     )
 }
 

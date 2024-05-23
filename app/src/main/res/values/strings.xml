@@ -3,4 +3,7 @@
     <string name="submit_name">Submit</string>
     <string name="guessTheSong">Guess The Song</string>
     <string name="skip">Skip</string>
+    <string name="standard">Standard</string>
+    <string name="songs">Songs</string>
+    <string name="buyNow">Buy Now</string>
 </resources>
