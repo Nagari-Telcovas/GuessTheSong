@@ -74,7 +74,9 @@ class MainActivity : ComponentActivity(), SongClickListener {
                 mediaPlayer.start()
                 pause = false
             }else {
-                playAudio()
+
+                playSound()
+              // playAudio()
             }
         }
         pauseSong.setOnClickListener {
@@ -103,14 +105,20 @@ class MainActivity : ComponentActivity(), SongClickListener {
             if(qnumber<user.response.size) {
                 pause = false
 
+
                 if (mediaPlayer.isPlaying) {
-                    mediaPlayer.release()
+
                     mediaPlayer.stop()
+                    mediaPlayer.release()
                 }
                 playAudio()
                 setUpAdapterData(user.response)
             }
             else{
+                if (mediaPlayer.isPlaying) {
+                    mediaPlayer.stop()
+                    mediaPlayer.release()
+                }
                 showDialog(this)
             }
           //  val intentSubmit = Intent(this, PurchasePacksActivity::class.java)
@@ -122,8 +130,7 @@ class MainActivity : ComponentActivity(), SongClickListener {
 
         try {
 
-        mediaPlayer = MediaPlayer()
-        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC)
+
         // and catch block for our media player.
 
           /*  val filePath = "songs.json" // Replace with your JSON file path
@@ -167,6 +174,8 @@ class MainActivity : ComponentActivity(), SongClickListener {
     fun playAudio()
     {
 
+        mediaPlayer = MediaPlayer()
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC)
         var audioUrl =  user.response.get(qnumber).songurl
         // var audioUrl = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
 
@@ -256,6 +265,38 @@ class MainActivity : ComponentActivity(), SongClickListener {
             e.printStackTrace()
         }
 
+    }
+    fun playSound() {
+
+        var audioUrl =  user.response.get(qnumber).songurl
+     //   if (mediaPlayer == null) {
+            if(audioUrl.equals("whenyouarenotwithme"))
+            mediaPlayer = MediaPlayer.create(this, R.raw.whenyouarenotwithme)
+            else if(audioUrl.equals("thevictorianmansion"))
+                mediaPlayer = MediaPlayer.create(this, R.raw.thevictorianmansion)
+            else if(audioUrl.equals("travellingbluesexplorer"))
+                mediaPlayer = MediaPlayer.create(this, R.raw.travellingbluesexplorer)
+            else if(audioUrl.equals("howfarisitto"))
+                mediaPlayer = MediaPlayer.create(this, R.raw.howfarisitto)
+            else if(audioUrl.equals("daretowin"))
+                mediaPlayer = MediaPlayer.create(this, R.raw.daretowin)
+            mediaPlayer!!.isLooping = true
+            mediaPlayer!!.start()
+       // } else mediaPlayer!!.start()
+    }
+
+    // 2. Pause playback
+    fun pauseSound() {
+        if (mediaPlayer?.isPlaying == true) mediaPlayer?.pause()
+    }
+
+    // 3. Stops playback
+    fun stopSound() {
+        if (mediaPlayer != null) {
+            mediaPlayer!!.stop()
+            mediaPlayer!!.release()
+          //  mediaPlayer = null
+        }
     }
     private fun initializeSeekBar() {
         songProgress.max = mediaPlayer.seconds
