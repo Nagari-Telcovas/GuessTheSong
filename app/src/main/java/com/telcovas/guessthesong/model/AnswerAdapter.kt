@@ -1,7 +1,7 @@
 package com.telcovas.guessthesong.model
 
+
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.telcovas.guessthesong.R
 
 
-class AnswerAdapter(private val context: Context, val priceList: List<Detail>) :
+class AnswerAdapter(private val context: Context, val priceList: List<Detail>, private var clickItemListener: SongClickListener) :
     RecyclerView.Adapter<AnswerAdapter.ViewHolder>() {
     var selectedItemPos = -1
     var lastItemSelectedPos = -1
@@ -26,26 +26,23 @@ class AnswerAdapter(private val context: Context, val priceList: List<Detail>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            Log.d("PriceListDetails11", priceList.toString())
         holder?.currentText?.text = priceList.get(position).type1
         holder?.contentQuestion?.text = priceList.get(position).option1
-
-        // holder?.currentText?.text =priceList.get(0).option1
-        holder?.itemView?.setOnClickListener {
-
+        if(position == selectedItemPos)
             holder?.selQuestion?.visibility=View.VISIBLE
-            Log.e("position",":"+position)
-        //    selectedItemPos = holder.absoluteAdapterPosition
-            lastItemSelectedPos = if(lastItemSelectedPos == -1)
-                selectedItemPos
+        else
+            holder?.selQuestion?.visibility=View.GONE
 
-            else {
-                notifyItemChanged(lastItemSelectedPos)
-                selectedItemPos
-
-            }
-            Log.e("selectedItemPos",":"+selectedItemPos)
-            notifyItemChanged(selectedItemPos)
+        holder?.itemView?.setOnClickListener {
+                selectedItemPos = holder.adapterPosition
+                if(lastItemSelectedPos == -1)
+                    lastItemSelectedPos = selectedItemPos
+                else {
+                    notifyItemChanged(lastItemSelectedPos)
+                    lastItemSelectedPos = selectedItemPos
+                }
+                notifyItemChanged(selectedItemPos)
+            clickItemListener.onSelectClicked(priceList.get(position).option1, priceList.get(position).type1)
         }
     }
 

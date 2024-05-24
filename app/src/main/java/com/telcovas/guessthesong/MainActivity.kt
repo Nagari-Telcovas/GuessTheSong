@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.widget.ProgressBar
 import android.widget.SeekBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
@@ -32,17 +33,17 @@ import com.google.gson.Gson
 import com.telcovas.guessthesong.model.AnswerAdapter
 import com.telcovas.guessthesong.model.Detail
 import com.telcovas.guessthesong.model.Quizinfo
+import com.telcovas.guessthesong.model.SongClickListener
 import com.telcovas.guessthesong.model.SongsList
 import com.telcovas.guessthesong.purchasePacks.PurchasePacksActivity
 import com.telcovas.guessthesong.ui.theme.GuessTheSongTheme
 import de.hdodenhof.circleimageview.CircleImageView
 
-class MainActivity : ComponentActivity() {
+class MainActivity : ComponentActivity(), SongClickListener {
 
     lateinit var setupAutoMoneyAdapter: AnswerAdapter
     private lateinit var pauseSong: CircleImageView
     private lateinit var reloadSong: CircleImageView
-
     private lateinit var playimg1: CircleImageView
     private lateinit var selectAmountList: RecyclerView
     lateinit var mediaPlayer: MediaPlayer
@@ -55,6 +56,7 @@ class MainActivity : ComponentActivity() {
     private lateinit var progressbar_id: ProgressBar
     private var qnumber=0
     private lateinit var percentData: AppCompatTextView
+    private lateinit var selectedOptionType: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,12 +93,15 @@ class MainActivity : ComponentActivity() {
                 qnumber=user.response.size
             progressbar_id.progress = qnumber
             percentData.text = qnumber.toString() + "/" + user.response.size.toString()
-            Log.e("submit",":"+qnumber)
-            Log.e("total",":"+user.response.size)
+            Log.e("submit11",":"+qnumber)
+            Log.e("submit22",":"+user.response.size)
+                if (selectedOptionType == user.response.get(0).answer){
+                    Toast.makeText(this, "Correct", Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(this, "Wrong", Toast.LENGTH_SHORT).show()
+                }
             if(qnumber<user.response.size) {
                 pause = false
-
-
 
                 if (mediaPlayer.isPlaying) {
                     mediaPlayer.release()
@@ -282,7 +287,7 @@ class MainActivity : ComponentActivity() {
         var quizListData =listData[qnumber].details as ArrayList<Detail>
         //var quizListData22 =quizListData.get(0).option1 as ArrayList<Detail>
         Log.d("SongUrl22", quizListData.toString())
-            setupAutoMoneyAdapter = AnswerAdapter(this, quizListData)
+            setupAutoMoneyAdapter = AnswerAdapter(this, quizListData, this)
             selectAmountList.adapter = setupAutoMoneyAdapter
 
     }
@@ -310,6 +315,10 @@ class MainActivity : ComponentActivity() {
                     finish()
         }*/
 
+    }
+
+    override fun onSelectClicked(optionName: String?, type: String?) {
+        selectedOptionType = type!!
     }
 }
 
