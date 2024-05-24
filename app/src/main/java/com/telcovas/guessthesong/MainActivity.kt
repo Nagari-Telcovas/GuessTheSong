@@ -57,6 +57,7 @@ class MainActivity : ComponentActivity(), SongClickListener {
     private var qnumber=0
     private lateinit var percentData: AppCompatTextView
     private lateinit var selectedOptionType: String
+    var correctAnsList = ArrayList<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,9 +95,9 @@ class MainActivity : ComponentActivity(), SongClickListener {
             progressbar_id.progress = qnumber
             percentData.text = qnumber.toString() + "/" + user.response.size.toString()
             Log.e("submit11",":"+qnumber)
-            Log.e("submit22",":"+user.response.size)
-                if (selectedOptionType == user.response.get(0).answer){
+                if (selectedOptionType == user.response[qnumber-1].answer){
                     Toast.makeText(this, "Correct", Toast.LENGTH_SHORT).show()
+                    correctAnsList.add(qnumber)
                 }else{
                     Toast.makeText(this, "Wrong", Toast.LENGTH_SHORT).show()
                 }
@@ -111,7 +112,8 @@ class MainActivity : ComponentActivity(), SongClickListener {
                 setUpAdapterData(user.response)
             }
             else{
-                showDialog(this)
+                //Log.d("Correct Answers", correctAnsList.size)
+                showDialog(this, correctAnsList.size)
             }
           //  val intentSubmit = Intent(this, PurchasePacksActivity::class.java)
           // startActivity(intentSubmit)
@@ -292,12 +294,12 @@ class MainActivity : ComponentActivity(), SongClickListener {
 
     }
 
-    private fun showDialog(context: Context)
-    {
-
+    private fun showDialog(context: Context, correctAnswer: Int) {
         val builder = AlertDialog.Builder(this).create()
         val view = layoutInflater.inflate(R.layout.dialog_complete,null)
         val  button = view.findViewById<TextView>(R.id.submittv)
+        val messageSelectedText = view.findViewById<TextView>(R.id.messageSelectedText)
+        messageSelectedText.text = "Your Score is ${correctAnswer}/5"
         builder.setView(view)
         button.setOnClickListener {
             builder.dismiss()
