@@ -3,19 +3,20 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/_5sdp"
+
     android:background="@drawable/bg_dialog">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="@dimen/_10sdp"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/dialogConfirmText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Congratulations?"
+            android:text="Congratulations"
             android:textSize="@dimen/_15ssp"
             android:padding="@dimen/_10sdp"
             android:gravity="center"
@@ -44,37 +45,20 @@
             android:textColor="@color/body_bg"/>
 
         <TextView
-            android:id="@+id/submit"
+            android:id="@+id/submittv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Submit?"
+            android:text="Submit"
             android:gravity="center"
             android:padding="@dimen/_10sdp"
-            android:layout_margin="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_30sdp"
             android:layout_gravity="center"
             android:background="@drawable/dialog_button_bg"
 
             android:textSize="@dimen/_15ssp"
             android:textColor="@color/white"/>
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/continueButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_35ssp"
-            android:layout_marginTop="@dimen/_5ssp"
-            android:layout_marginEnd="@dimen/_25sdp"
-            android:background="@drawable/button_bg"
-            android:paddingStart="@dimen/_5sdp"
-            android:paddingTop="@dimen/_5sdp"
-            android:paddingEnd="@dimen/_5sdp"
-            android:paddingBottom="@dimen/_5sdp"
-            android:text="@string/submit_name"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_15sdp"
-            android:gravity="center"
-            android:visibility="gone"
-            android:layout_gravity="center"
-        />
+
 
     </LinearLayout>
 

@@ -7,6 +7,7 @@ data class SongsList(
 
 data class Quizinfo(
     val songurl: String,
+    val answer: String,
     val details: List<Detail>
 )
 

@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import com.telcovas.guessthesong.R
@@ -25,18 +26,25 @@ class AnswerAdapter(private val context: Context, val priceList: List<Detail>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Log.d("PriceListDetails11", priceList.toString())
+            Log.d("PriceListDetails11", priceList.toString())
         holder?.currentText?.text = priceList.get(position).type1
         holder?.contentQuestion?.text = priceList.get(position).option1
+
         // holder?.currentText?.text =priceList.get(0).option1
         holder?.itemView?.setOnClickListener {
+
+            holder?.selQuestion?.visibility=View.VISIBLE
+            Log.e("position",":"+position)
         //    selectedItemPos = holder.absoluteAdapterPosition
             lastItemSelectedPos = if(lastItemSelectedPos == -1)
                 selectedItemPos
+
             else {
                 notifyItemChanged(lastItemSelectedPos)
                 selectedItemPos
+
             }
+            Log.e("selectedItemPos",":"+selectedItemPos)
             notifyItemChanged(selectedItemPos)
         }
     }
@@ -44,6 +52,7 @@ class AnswerAdapter(private val context: Context, val priceList: List<Detail>) :
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val currentText = view.findViewById(R.id.currentText) as AppCompatTextView
         val contentQuestion = view.findViewById(R.id.contentQuestion) as AppCompatTextView
+        val selQuestion = view.findViewById(R.id.selectedQuestion) as AppCompatImageView
     }
 
     override fun getItemViewType(position: Int): Int {
