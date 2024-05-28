@@ -56,7 +56,7 @@ class MainActivity : ComponentActivity(), SongClickListener {
     private lateinit var progressbar_id: ProgressBar
     private var qnumber=0
     private lateinit var percentData: AppCompatTextView
-    private lateinit var selectedOptionType: String
+    private var selectedOptionType: String = "0"
     var correctAnsList = ArrayList<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,35 +91,40 @@ class MainActivity : ComponentActivity(), SongClickListener {
         }
 
         submitButton.setOnClickListener {
-            qnumber++
-            if(qnumber> user.response.size)
-                qnumber=user.response.size
-            progressbar_id.progress = qnumber
-            percentData.text = qnumber.toString() + "/" + user.response.size.toString()
-            Log.e("submit11",":"+qnumber)
-                if (selectedOptionType == user.response[qnumber-1].answer){
+            if (selectedOptionType != "0") {
+                qnumber++
+                if (qnumber > user.response.size)
+                    qnumber = user.response.size
+                progressbar_id.progress = qnumber
+                percentData.text = qnumber.toString() + "/" + user.response.size.toString()
+                Log.e("submit11", ":" + qnumber)
+
+                if (selectedOptionType == user.response[qnumber - 1].answer) {
                     Toast.makeText(this, "Correct", Toast.LENGTH_SHORT).show()
                     correctAnsList.add(qnumber)
-                }else{
+                } else {
                     Toast.makeText(this, "Wrong", Toast.LENGTH_SHORT).show()
                 }
-            if(qnumber<user.response.size) {
-                pause = false
 
-                if (mediaPlayer.isPlaying) {
-                    mediaPlayer.release()
-                    mediaPlayer.stop()
+                if (qnumber < user.response.size) {
+                    pause = false
+
+                    if (mediaPlayer.isPlaying) {
+                        mediaPlayer.release()
+                        mediaPlayer.stop()
+                    }
+                    // playAudio()
+                    playSound()
+                    setUpAdapterData(user.response)
+                } else {
+                    //Log.d("Correct Answers", correctAnsList.size)
+                    showDialog(this, correctAnsList.size)
                 }
-               // playAudio()
-                playSound()
-                setUpAdapterData(user.response)
+                //  val intentSubmit = Intent(this, PurchasePacksActivity::class.java)
+                // startActivity(intentSubmit)
+            }else{
+                Toast.makeText(this, "Please select the Question!!", Toast.LENGTH_SHORT).show()
             }
-            else{
-                //Log.d("Correct Answers", correctAnsList.size)
-                showDialog(this, correctAnsList.size)
-            }
-          //  val intentSubmit = Intent(this, PurchasePacksActivity::class.java)
-          // startActivity(intentSubmit)
         }
         selectAmountList = findViewById(R.id.selectAmountList)
         selectAmountList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
