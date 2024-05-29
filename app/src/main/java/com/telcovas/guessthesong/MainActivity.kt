@@ -57,6 +57,9 @@ class MainActivity : ComponentActivity(), SongClickListener {
     private lateinit var progressbar_id: ProgressBar
     private var qnumber=0
     private lateinit var percentData: AppCompatTextView
+    private lateinit var skipButton: AppCompatTextView
+
+
     private var selectedOptionType: String = "0"
     var correctAnsList = ArrayList<Int>()
     private var isAnswered:Boolean = false
@@ -72,6 +75,7 @@ class MainActivity : ComponentActivity(), SongClickListener {
         pauseSong= findViewById(R.id.pauseSong)
         reloadSong= findViewById(R.id.reloadSong)
         percentData= findViewById(R.id.percentData)
+        skipButton= findViewById(R.id.skipButton)
         playimg1.setOnClickListener {
             if(pause){
                 mediaPlayer.seekTo(mediaPlayer.currentPosition)
@@ -79,6 +83,7 @@ class MainActivity : ComponentActivity(), SongClickListener {
                 pause = false
             }else {
                // playAudio()
+
                 playSound()
             }
         }
@@ -93,6 +98,43 @@ class MainActivity : ComponentActivity(), SongClickListener {
             playSound()
         }
 
+        skipButton.setOnClickListener {
+            // try {
+
+
+                qnumber++
+                if (qnumber > user.response.size)
+                    qnumber = user.response.size
+                progressbar_id.progress = qnumber
+                percentData.text = qnumber.toString() + "/" + user.response.size.toString()
+                Log.e("submit11", ":" + qnumber)
+
+
+
+                if (qnumber < user.response.size) {
+                    pause = false
+
+                 /*   if (mediaPlayer.isPlaying) {
+
+                        mediaPlayer.stop()
+                        mediaPlayer.release()
+                    }*/
+
+                    setUpAdapterData(user.response)
+                } else {
+                    if (mediaPlayer.isPlaying) {
+
+                        mediaPlayer.stop()
+                        mediaPlayer.release()
+                    }
+                    //Log.d("Correct Answers", correctAnsList.size)
+                    showDialog(this, correctAnsList.size)
+                }
+                selectedOptionType="0"
+
+
+
+        }
         submitButton.setOnClickListener {
            // try {
 
@@ -334,6 +376,8 @@ class MainActivity : ComponentActivity(), SongClickListener {
 
         if(correctAnswer<5)
         {
+            val wans=5-correctAnswer
+            text_msg.text = "You have given ${wans} wrong answers but"
             text_msg.visibility= View.VISIBLE
             text_points.text = "You Got 50 Points"
         }

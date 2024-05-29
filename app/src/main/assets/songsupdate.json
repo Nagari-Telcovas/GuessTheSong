@@ -13,12 +13,12 @@
 },
 {"songurl":"travellingbluesexplorer",
   "answer":"C",
-"details":[{"option1":"Faded", "type1":"A"},{"option1":"Shape of Yo", "type1":"B"},
+"details":[{"option1":"Faded", "type1":"A"},{"option1":"Shape of You", "type1":"B"},
   {"option1":"travelling blues explorer", "type1":"C"}, {"option1":"dialed", "type1":"D"}]},
   {"songurl":"howfarisitto",
     "answer":"A",
 "details":[{"option1":"how far is it to", "type1":"A"},{"option1":"You and I", "type1":"B"},
-  {"option1":"What makes you beautifu", "type1":"C"}, {"option1":"We Don't Talk Anymore", "type1":"D"}]
+  {"option1":"What makes you beautiful", "type1":"C"}, {"option1":"We Don't Talk Anymore", "type1":"D"}]
 }
 ,{"songurl":"daretowin",
     "answer":"D",
