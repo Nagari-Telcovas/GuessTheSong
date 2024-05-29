@@ -2,28 +2,18 @@
   "status":true,
   "message":"Success",
   "response":[
-    {"songurl":"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-      "answer":"A",
-      "details":[{"option1":"When you are not with me", "type1":"A"},{"option1":"Billie Jean", "type1":"B"},
-        {"option1":"Counting Stars", "type1":"C"}, {"option1":"You and I", "type1":"D"}]},
-    {"songurl":"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-      "answer":"c",
-      "details":[{"option1":"What makes you beautiful", "type1":"A"},{"option1":"Perfect", "type1":"B"},
-        {"option1":"The victorian mansion", "type1":"C"}, {"option1":"Faded", "type1":"D"}]
+    {"plan":"Standard",
+      "songs":"10 Songs",
+      "price":"3 USD"
     },
-    {"songurl":"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-      "answer":"D",
-      "details":[{"option1":"The victorian mansion", "type1":"A"},{"option1":"Breath", "type1":"B"},
-        {"option1":"2024-05-21 12:33:18.0", "type1":"C"}, {"option1":"how far is it to", "type1":"D"}]},
-    {"songurl":"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-      "answer":"B",
-      "details":[{"option1":"2024-05-21 12:33:15.0", "type1":"A"},{"option1":"", "type1":"B"},
-        {"option1":"2024-05-21 12:33:18.0", "type1":"C"}, {"option1":"dialed", "type1":"D"}]
+    {"plan":"Standard",
+      "songs":"20 Songs",
+      "price":"5 USD"
+    },
+    {"plan":"Standard",
+      "songs":"50 Songs",
+      "price":"15 USD"
     }
-  ,{"songurl":"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-      "answer":"B",
-      "details":[{"option1":"2024-05-21 12:33:15.0", "type1":"A"},{"option1":"", "type1":"B"},
-        {"option1":"2024-05-21 12:33:18.0", "type1":"C"}, {"option1":"dialed", "type1":"D"}]
-    }]
+   ]
 
 }

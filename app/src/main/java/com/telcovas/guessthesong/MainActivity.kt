@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.ProgressBar
 import android.widget.SeekBar
 import android.widget.TextView
@@ -58,6 +59,8 @@ class MainActivity : ComponentActivity(), SongClickListener {
     private lateinit var percentData: AppCompatTextView
     private var selectedOptionType: String = "0"
     var correctAnsList = ArrayList<Int>()
+    private var isAnswered:Boolean = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,40 +94,53 @@ class MainActivity : ComponentActivity(), SongClickListener {
         }
 
         submitButton.setOnClickListener {
-            if (selectedOptionType != "0") {
-                qnumber++
-                if (qnumber > user.response.size)
-                    qnumber = user.response.size
-                progressbar_id.progress = qnumber
-                percentData.text = qnumber.toString() + "/" + user.response.size.toString()
-                Log.e("submit11", ":" + qnumber)
+           // try {
 
-                if (selectedOptionType == user.response[qnumber - 1].answer) {
-                    Toast.makeText(this, "Correct", Toast.LENGTH_SHORT).show()
-                    correctAnsList.add(qnumber)
-                } else {
-                    Toast.makeText(this, "Wrong", Toast.LENGTH_SHORT).show()
-                }
+                if (selectedOptionType != "0") {
+                    qnumber++
+                    if (qnumber > user.response.size)
+                        qnumber = user.response.size
+                    progressbar_id.progress = qnumber
+                    percentData.text = qnumber.toString() + "/" + user.response.size.toString()
+                    Log.e("submit11", ":" + qnumber)
 
-                if (qnumber < user.response.size) {
-                    pause = false
-
-                    if (mediaPlayer.isPlaying) {
-                        mediaPlayer.release()
-                        mediaPlayer.stop()
+                    if (selectedOptionType == user.response[qnumber - 1].answer) {
+                        Toast.makeText(this, "Correct Answer", Toast.LENGTH_SHORT).show()
+                        correctAnsList.add(qnumber)
+                    } else {
+                        Toast.makeText(this, "Wrong Answer", Toast.LENGTH_SHORT).show()
                     }
-                    // playAudio()
-                    playSound()
-                    setUpAdapterData(user.response)
+
+                    if (qnumber < user.response.size) {
+                        pause = false
+                       // stopSound()
+                         if (mediaPlayer.isPlaying) {
+
+                        mediaPlayer.stop()
+                        mediaPlayer.release()
+                    }
+                        // playAudio()
+                        // playSound()
+                        setUpAdapterData(user.response)
+                    } else {
+                        if (mediaPlayer.isPlaying) {
+
+                            mediaPlayer.stop()
+                            mediaPlayer.release()
+                        }
+                        //Log.d("Correct Answers", correctAnsList.size)
+                        showDialog(this, correctAnsList.size)
+                    }
+                    selectedOptionType="0"
+                    //  val intentSubmit = Intent(this, PurchasePacksActivity::class.java)
+                    // startActivity(intentSubmit)
                 } else {
-                    //Log.d("Correct Answers", correctAnsList.size)
-                    showDialog(this, correctAnsList.size)
+                    Toast.makeText(this, "Please select the Answer!!", Toast.LENGTH_SHORT).show()
                 }
-                //  val intentSubmit = Intent(this, PurchasePacksActivity::class.java)
-                // startActivity(intentSubmit)
-            }else{
-                Toast.makeText(this, "Please select the Question!!", Toast.LENGTH_SHORT).show()
-            }
+           /* } catch (e:Exception)
+            {
+                Log.e("Excerrr",":"+e.toString())
+            }*/
         }
         selectAmountList = findViewById(R.id.selectAmountList)
         selectAmountList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -163,7 +179,7 @@ class MainActivity : ComponentActivity(), SongClickListener {
         return data;
     }
 
-    private fun readFromAsset1(): String {
+    private fun readPackages(): String {
         val file_name = "quizlist.json"
         val bufferReader = application.assets.open(file_name).bufferedReader()
         val data = bufferReader.use {
@@ -307,7 +323,21 @@ class MainActivity : ComponentActivity(), SongClickListener {
         val view = layoutInflater.inflate(R.layout.dialog_complete,null)
         val  button = view.findViewById<TextView>(R.id.submittv)
         val messageSelectedText = view.findViewById<TextView>(R.id.messageSelectedText)
+        val text_msg = view.findViewById<TextView>(R.id.text_msg)
+        val text_points = view.findViewById<TextView>(R.id.text_points)
+
+
+
+
+
         messageSelectedText.text = "Your Score is ${correctAnswer}/5"
+
+        if(correctAnswer<5)
+        {
+            text_msg.visibility= View.VISIBLE
+            text_points.text = "You Got 50 Points"
+        }
+
         builder.setView(view)
         button.setOnClickListener {
             builder.dismiss()
@@ -329,6 +359,7 @@ class MainActivity : ComponentActivity(), SongClickListener {
 
     override fun onSelectClicked(optionName: String?, type: String?) {
         selectedOptionType = type!!
+        Log.e("onSelectClicked",":"+selectedOptionType)
     }
 
     fun playSound() {
@@ -358,8 +389,11 @@ class MainActivity : ComponentActivity(), SongClickListener {
     // 3. Stops playback
     fun stopSound() {
         if (mediaPlayer != null) {
-            mediaPlayer!!.stop()
-            mediaPlayer!!.release()
+            if (mediaPlayer?.isPlaying == true) {
+                mediaPlayer!!.stop()
+                mediaPlayer!!.release()
+
+            }
             //  mediaPlayer = null
         }
     }

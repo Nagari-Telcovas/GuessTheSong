@@ -37,7 +37,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/_10sdp"
+            android:id="@+id/text_msg"
+            android:text="You have given wrong answer but"
+            android:gravity="center"
+            android:visibility="gone"
+            android:textSize="@dimen/_16ssp"
+            android:textColor="@color/body_bg"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10sdp"
+            android:id="@+id/text_points"
             android:text="You have won 10 gb data and 100 points"
             android:gravity="center"
             android:textSize="@dimen/_20ssp"
