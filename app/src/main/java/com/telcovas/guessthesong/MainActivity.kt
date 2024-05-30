@@ -7,7 +7,6 @@ import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.SeekBar
@@ -17,17 +16,6 @@ import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
@@ -37,7 +25,6 @@ import com.telcovas.guessthesong.model.Quizinfo
 import com.telcovas.guessthesong.model.SongClickListener
 import com.telcovas.guessthesong.model.SongsList
 import com.telcovas.guessthesong.purchasePacks.PurchasePacksActivity
-import com.telcovas.guessthesong.ui.theme.GuessTheSongTheme
 import de.hdodenhof.circleimageview.CircleImageView
 
 class MainActivity : ComponentActivity(), SongClickListener {
