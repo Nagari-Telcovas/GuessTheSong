@@ -7,9 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="header_bg">#41053F</color>
+    <color name="header_bg">#410505</color>
     <color name="body_bg">#580055 </color>
-    <color name="button_bg">#FF00F5 </color>
+    <color name="button_bg">#FF0000</color>
     <color name="yellow_bg">#FFE500 </color>
     <color name="song_bg">#C58BC3</color>
     <color name="lightPinkColor">#FFD6FD</color>

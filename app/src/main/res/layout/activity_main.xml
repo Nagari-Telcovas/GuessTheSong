@@ -4,13 +4,126 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/background_full_img"
     tools:context=".MainActivity">
 
     <include
         android:id="@+id/toolbarLayout"
         layout="@layout/toolbar_title" />
 
+
+    <ProgressBar
+        android:id="@+id/progressbar_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:progressDrawable="@drawable/custom_progress_bg"
+        android:padding="@dimen/_15sdp"
+        android:progress="0"
+        android:progressBackgroundTint="@color/white"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarLayout">
+
+    </ProgressBar>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/percentData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:text="1/10"
+        app:fontFamily="@font/kavoon"
+        android:layout_marginLeft="@dimen/_15sdp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_15ssp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressbar_id" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/skipButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:text="@string/skip"
+        android:visibility="visible"
+        android:layout_marginRight="@dimen/_15sdp"
+        android:textColor="@color/yellow_bg"
+        android:textSize="@dimen/_15ssp"
+        app:fontFamily="@font/kavoon"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressbar_id" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/songTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="@string/guessTheSong"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_15ssp"
+        app:fontFamily="@font/kavoon"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/percentData" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/songImage"
+        android:layout_width="@dimen/_65sdp"
+        android:layout_height="@dimen/_65sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:src="@drawable/song_logo"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/songTitle"/>
+
+    <SeekBar
+        android:id="@+id/songProgress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:progressBackgroundTint="@color/white"
+        app:layout_constrainedWidth="true"
+        android:progress="0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/songImage"
+        app:layout_constraintTop_toBottomOf="@+id/songTitle"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/playSong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/play_song"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@+id/songProgress"
+        app:layout_constraintStart_toEndOf="@+id/songImage"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/pauseSong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/pause_song"
+        android:padding="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        app:layout_constraintTop_toBottomOf="@+id/songProgress"
+        app:layout_constraintLeft_toRightOf="@+id/playSong"
+        app:layout_constraintRight_toLeftOf="@+id/reloadSong"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/reloadSong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/play_refresh"
+        android:padding="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        app:layout_constraintTop_toBottomOf="@+id/songProgress"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginRight="@dimen/_10sdp"/>
 
     <!-- <androidx.core.widget.NestedScrollView
          android:layout_width="match_parent"
@@ -21,134 +134,14 @@
          app:layout_constraintRight_toRightOf="parent"
          app:layout_constraintTop_toBottomOf="@+id/toolbarLayout">-->
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/walletLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/body_bg"
-                app:layout_constraintTop_toBottomOf="@+id/toolbarLayout">
-
-                <ProgressBar
-                    android:id="@+id/progressbar_id"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:progressDrawable="@drawable/custom_progress_bg"
-                    android:padding="@dimen/_15sdp"
-                    android:progress="0"
-                    android:progressBackgroundTint="@color/white"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                </ProgressBar>
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/percentData"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="1/10"
-                    app:fontFamily="@font/kavoon"
-                    android:layout_marginLeft="@dimen/_15sdp"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_15ssp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/progressbar_id" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/skipButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/skip"
-                    android:visibility="visible"
-                    android:layout_marginRight="@dimen/_15sdp"
-                    android:textColor="@color/yellow_bg"
-                    android:textSize="@dimen/_15ssp"
-                    app:fontFamily="@font/kavoon"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/progressbar_id" />
-
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/songTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:text="@string/guessTheSong"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_15ssp"
-                    app:fontFamily="@font/kavoon"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/percentData" />
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/songImage"
-                    android:layout_width="@dimen/_65sdp"
-                    android:layout_height="@dimen/_65sdp"
-                    android:layout_marginTop="@dimen/_15sdp"
-                    android:layout_marginLeft="@dimen/_10sdp"
-                    android:src="@drawable/song_logo"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/songTitle"/>
-
-                <SeekBar
-                    android:id="@+id/songProgress"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:progressBackgroundTint="@color/white"
-                    app:layout_constrainedWidth="true"
-                    android:progress="0"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/songImage"
-                    app:layout_constraintTop_toBottomOf="@+id/songTitle"/>
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/playSong"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/play_song"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginLeft="@dimen/_10sdp"
-                    app:layout_constraintTop_toBottomOf="@+id/songProgress"
-                    app:layout_constraintStart_toEndOf="@+id/songImage"/>
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/pauseSong"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/pause_song"
-                    android:padding="@dimen/_5sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    app:layout_constraintTop_toBottomOf="@+id/songProgress"
-                    app:layout_constraintLeft_toRightOf="@+id/playSong"
-                    app:layout_constraintRight_toLeftOf="@+id/reloadSong"/>
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/reloadSong"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/play_refresh"
-                    android:padding="@dimen/_5sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    app:layout_constraintTop_toBottomOf="@+id/songProgress"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginRight="@dimen/_10sdp"/>
-
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:background="@drawable/border_top_rounded"
+                    android:layout_marginTop="@dimen/_35sdp"
+                    app:layout_constrainedHeight="true"
+                    android:background="@drawable/bg_rounded_top"
                     android:paddingStart="@dimen/_20sdp"
                     android:paddingEnd="@dimen/_20sdp"
-                    android:paddingBottom="@dimen/_80sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/songImage">
 
@@ -156,8 +149,7 @@
                         android:id="@+id/selectAmountList"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_20sdp"
-                        android:background="@color/white"
+                        android:layout_marginTop="@dimen/_25sdp"
                         android:orientation="vertical"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constrainedHeight="true"
@@ -187,7 +179,6 @@
                         app:layout_constraintTop_toBottomOf="@+id/selectAmountList" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- </androidx.core.widget.NestedScrollView>-->
 

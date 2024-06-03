@@ -97,7 +97,7 @@
                 android:layout_height="@dimen/_50sdp"
 
 
-                android:src="@drawable/song_logo"
+                android:src="@drawable/song_logo1"
                />
 
             <RelativeLayout

@@ -6,8 +6,8 @@
         android:radius="@dimen/_5ssp" />
 
     <stroke android:width="2px"
-        android:color="@color/lightPinkColor" />
+        android:color="@color/white" />
 
-    <solid android:color="@color/lightPinkColor"/>
+    <solid android:color="@color/white"/>
 
 </shape>
