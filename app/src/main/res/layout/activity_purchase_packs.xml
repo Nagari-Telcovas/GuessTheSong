@@ -15,7 +15,7 @@
         android:id="@+id/walletLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/body_bg"
+        android:background="@drawable/background_full_img"
         app:layout_constrainedHeight="true"
         app:layout_constraintTop_toBottomOf="@+id/toolbarLayout"
         app:layout_constraintBottom_toBottomOf="parent">
