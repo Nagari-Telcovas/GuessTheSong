@@ -34,6 +34,7 @@ android {
         jvmTarget = '1.8'
     }
     buildFeatures {
+        viewBinding = true
         compose true
     }
     composeOptions {
@@ -69,7 +70,7 @@ dependencies {
    // androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
   //  debugImplementation 'androidx.compose.ui:ui-tooling'
   //  debugImplementation 'androidx.compose.ui:ui-test-manifest'
-
+    implementation("io.michaelrocks:libphonenumber-android:8.13.28")
     implementation("com.intuit.sdp:sdp-android:1.0.6")
 // For SSP, use this:
     implementation("com.intuit.ssp:ssp-android:1.0.6")

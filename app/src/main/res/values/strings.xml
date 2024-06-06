@@ -8,4 +8,50 @@
     <string name="standard">Standard</string>
     <string name="songs">Songs</string>
     <string name="buyNow">Buy Now</string>
+
+    <string name="totalQuizes">Total Quizes</string>
+    <string name="wins">Wins</string>
+    <string name="loses">Loses</string>
+    <string name="yourWins">Your Wins</string>
+    <string name="quizName">QuizName/Code</string>
+    <string name="score">Score</string>
+    <string name="totalPlays">Total Plays</string>
+    <string name="standings">Standings</string>
+
+    <!--  Login  -->
+    <string name="name">Name</string>
+    <string name="phone">Phone</string>
+    <string name="addNumber">Add Number</string>
+    <string name="countryText">Country</string>
+    <string name="addAddress">Add Address</string>
+    <string name="requiredMsisdn">Mobile Number can\'t be Empty</string>
+    <string name="numberLength">Mobile Number at least 8 Digit</string>
+    <string name="requiredLength">At least 6 Digit number</string>
+    <string name="checkNetwork">Please check your Internet Connectivity</string>
+    <string name="transfer">Transfer</string>
+    <string name="transferNow">Transfer Now</string>
+    <string name="alreadyAccount">Already have an Account?</string>
+    <string name="continueText">GET OTP</string>
+    <string name="phoneNumber">Phone Number</string>
+    <string name="getStarted">Lets get started</string>
+    <string name="subNumberText">We will send you an One Time Password on this mobile number</string>
+
+    <!--  Country Code  -->
+    <string name="search_hint">Search…</string>
+    <string name="search">Search</string>
+    <string name="no_result_found">Results not found</string>
+    <string name="select_country">Select a country</string>
+    <string name="dismiss_button_content_description">Dismiss</string>
+    <string name="clear_search_button_content_description">Clear search</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="title_activity_navigation_main">NavigationMainActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="success">Success!</string>
+    <string name="fail">Fail!</string>
 </resources>

@@ -16,6 +16,18 @@
         android:theme="@style/Theme.GuessTheSong"
         tools:targetApi="31">
         <activity
+            android:name=".login.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".leaderBoard.LeaderBoardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".myWines.MyWinesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".quizMenu.QuizMenuActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity

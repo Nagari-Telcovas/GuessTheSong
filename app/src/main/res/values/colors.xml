@@ -14,6 +14,9 @@
     <color name="yellow_bg">#FFE500 </color>
     <color name="song_bg">#C58BC3</color>
     <color name="lightPinkColor">#FFD6FD</color>
-
+    <color name="darkPinkColor">#C58B8B</color>
+    <color name="whiteOrDark">#FFFFFFFF</color>
+    <color name="login_text">#5F5F5F</color>
+    <color name="transparent">#00000000</color>
 
 </resources>
