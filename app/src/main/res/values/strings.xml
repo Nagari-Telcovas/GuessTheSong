@@ -8,6 +8,8 @@
     <string name="standard">Standard</string>
     <string name="songs">Songs</string>
     <string name="buyNow">Buy Now</string>
+    <string name="myWin">My Win</string>
+    <string name="leaderBoard">LeaderBoard</string>
 
     <string name="totalQuizes">Total Quizes</string>
     <string name="wins">Wins</string>

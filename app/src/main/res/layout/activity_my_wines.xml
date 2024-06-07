@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_full_img"
-    tools:context=".myWines.MyWinesActivity">
+    tools:context=".myWines.MyWinsActivity">
 
     <include
         android:id="@+id/toolbarLayout"
@@ -172,10 +172,12 @@
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constrainedHeight="true"
+            app:layout_constraintVertical_bias="0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titleName"
-            tools:itemCount="4"
+            tools:itemCount="2"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:listitem="@layout/item_quiz_name" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

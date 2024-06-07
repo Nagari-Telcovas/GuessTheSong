@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import com.telcovas.guessthesong.MainActivity
 import com.telcovas.guessthesong.R
+import com.telcovas.guessthesong.login.LoginActivity
 import com.telcovas.guessthesong.quizMenu.QuizMenuActivity
 
 class SplashActivity : AppCompatActivity() {
@@ -18,7 +19,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun displaySplash() {
         Handler(Looper.getMainLooper()).postDelayed({
-                val iLogin = Intent(this, QuizMenuActivity::class.java)
+                val iLogin = Intent(this, LoginActivity::class.java)
                 startActivity(iLogin)
                 finish()
         }, 2000)

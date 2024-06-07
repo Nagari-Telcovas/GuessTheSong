@@ -40,7 +40,7 @@ tools:context=".leaderBoard.LeaderBoardActivity">
             android:layout_height="wrap_content"
             android:text="@string/totalQuizes"
             android:fontFamily="@font/kavoon"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:layout_marginTop="@dimen/_15sdp"
             app:layout_constraintRight_toLeftOf="@+id/trophyPhoto"
             app:layout_constraintTop_toBottomOf="@+id/trophyPhoto"/>
@@ -68,7 +68,7 @@ tools:context=".leaderBoard.LeaderBoardActivity">
             android:layout_marginTop="@dimen/_15sdp"
             android:layout_marginRight="@dimen/_10sdp"
             android:fontFamily="@font/kavoon"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             app:layout_constraintLeft_toRightOf="@+id/trophyPhoto"
             app:layout_constraintTop_toBottomOf="@+id/trophyPhoto"/>
 
@@ -114,17 +114,19 @@ tools:context=".leaderBoard.LeaderBoardActivity">
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/selectAmountList"
+        android:id="@+id/selectScoreList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constrainedHeight="true"
+        app:layout_constraintVertical_bias="0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleName"
-        tools:itemCount="4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:itemCount="2"
         tools:listitem="@layout/item_leader_board" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

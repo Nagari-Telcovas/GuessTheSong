@@ -51,6 +51,7 @@
             android:layout_toLeftOf="@+id/imageView_arrow"
             android:layout_toEndOf="@+id/linear_flag_holder"
             android:layout_toRightOf="@+id/linear_flag_holder"
+            android:fontFamily="@font/kavoon"
             android:gravity="center"
             android:text="(IN) +91"
             android:textColor="@color/black"

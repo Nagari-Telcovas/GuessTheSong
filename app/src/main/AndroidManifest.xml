@@ -22,7 +22,7 @@
             android:name=".leaderBoard.LeaderBoardActivity"
             android:exported="false" />
         <activity
-            android:name=".myWines.MyWinesActivity"
+            android:name=".myWines.MyWinsActivity"
             android:exported="false" />
         <activity
             android:name=".quizMenu.QuizMenuActivity"

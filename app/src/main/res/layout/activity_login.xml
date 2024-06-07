@@ -13,8 +13,7 @@
         android:layout_height="@dimen/_120sdp"
         android:layout_marginTop="@dimen/_80sdp"
         android:padding="@dimen/_15sdp"
-        android:src="@drawable/app_logo_main"
-        app:layout_constraintHorizontal_bias="0.498"
+        android:src="@drawable/app_logo"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -74,24 +73,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/white"
-                android:paddingTop="@dimen/_40sdp"
                 android:paddingRight="@dimen/_5sdp"
                 app:ccpDialog_allowSearch="true"
                 app:ccpDialog_cornerRadius="8dp"
                 app:ccpDialog_keyboardAutoPopup="true"
                 app:ccpDialog_textColor="@color/login_text"
-                app:ccp_arrowColor="@color/whiteOrDark"
+                app:ccp_arrowColor="@color/black"
                 app:ccp_arrowSize="@dimen/_12sdp"
                 app:ccp_autoDetectCountry="true"
                 app:ccp_contentColor="@color/login_text"
                 app:ccp_countryPreference="in,us,nz,gb"
                 app:ccp_hintExampleNumber="true"
-                app:ccp_textSize="@dimen/_16ssp" />
+                app:ccp_textSize="@dimen/_12ssp"
+               android:layout_centerVertical="true"/>
 
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/phoneNumberOtp"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/transparent"
                 android:layout_toRightOf="@+id/countryPicker"
@@ -99,10 +98,11 @@
                 android:hint="@string/phoneNumber"
                 android:inputType="number"
                 android:maxLength="14"
-                android:padding="@dimen/_12sdp"
-                android:textColor="@color/whiteOrDark"
+                android:paddingTop="@dimen/_12sdp"
+                android:paddingBottom="@dimen/_12sdp"
+                android:textColor="@color/black"
                 android:textColorHint="@color/login_text"
-                android:textSize="@dimen/_16ssp" />
+                android:textSize="@dimen/_12ssp" />
 
         </RelativeLayout>
 

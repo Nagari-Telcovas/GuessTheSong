@@ -7,7 +7,7 @@ import com.telcovas.guessthesong.MainActivity
 import com.telcovas.guessthesong.R
 import com.telcovas.guessthesong.databinding.ActivityQuizMenuBinding
 import com.telcovas.guessthesong.leaderBoard.LeaderBoardActivity
-import com.telcovas.guessthesong.myWines.MyWinesActivity
+import com.telcovas.guessthesong.myWines.MyWinsActivity
 
 class QuizMenuActivity : BaseActivity<ActivityQuizMenuBinding>(ActivityQuizMenuBinding::inflate, R.string.app_name) {
 
@@ -18,7 +18,7 @@ class QuizMenuActivity : BaseActivity<ActivityQuizMenuBinding>(ActivityQuizMenuB
         }
 
         bindingScreen.wines.setOnClickListener {
-            var inItem = Intent(this, MyWinesActivity::class.java)
+            var inItem = Intent(this, MyWinsActivity::class.java)
             startActivity(inItem)
         }
 
