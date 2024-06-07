@@ -5,9 +5,11 @@ import android.content.Intent
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Handler
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.ProgressBar
 import android.widget.SeekBar
 import android.widget.TextView
@@ -45,16 +47,22 @@ class MainActivity : ComponentActivity(), SongClickListener {
     private var qnumber=0
     private lateinit var percentData: AppCompatTextView
     private lateinit var skipButton: AppCompatTextView
+    private lateinit var durationTimeText: AppCompatTextView
 
+
+    lateinit  var timer:CountDownTimer
+    var timerStarted:Boolean=false
 
     private var selectedOptionType: String = "0"
     var correctAnsList = ArrayList<Int>()
     private var isAnswered:Boolean = false
 
+    var lmilliseconds: Long = 60000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         submitButton = findViewById(R.id.submitButton)
         playimg1 = findViewById(R.id.playSong)
         songProgress= findViewById(R.id.songProgress)
@@ -62,6 +70,7 @@ class MainActivity : ComponentActivity(), SongClickListener {
         pauseSong= findViewById(R.id.pauseSong)
         reloadSong= findViewById(R.id.reloadSong)
         percentData= findViewById(R.id.percentData)
+        durationTimeText= findViewById(R.id.durationTimeText)
         skipButton= findViewById(R.id.skipButton)
         playimg1.setOnClickListener {
             if(pause){
@@ -123,49 +132,16 @@ class MainActivity : ComponentActivity(), SongClickListener {
 
         }
         submitButton.setOnClickListener {
+
+            if (selectedOptionType != "0") {
+                moveToNextSong()
+            } else {
+                Toast.makeText(this, "Please select the Answer!!", Toast.LENGTH_SHORT).show()
+            }
+
            // try {
 
-                if (selectedOptionType != "0") {
-                    qnumber++
-                    if (qnumber > user.response.size)
-                        qnumber = user.response.size
-                    progressbar_id.progress = qnumber
-                    percentData.text = qnumber.toString() + "/" + user.response.size.toString()
-                    Log.e("submit11", ":" + qnumber)
 
-                    if (selectedOptionType == user.response[qnumber - 1].answer) {
-                        Toast.makeText(this, "Correct Answer", Toast.LENGTH_SHORT).show()
-                        correctAnsList.add(qnumber)
-                    } else {
-                        Toast.makeText(this, "Wrong Answer", Toast.LENGTH_SHORT).show()
-                    }
-
-                    if (qnumber < user.response.size) {
-                        pause = false
-                       // stopSound()
-                         if (mediaPlayer.isPlaying) {
-
-                        mediaPlayer.stop()
-                        mediaPlayer.release()
-                    }
-                        // playAudio()
-                        // playSound()
-                        setUpAdapterData(user.response)
-                    } else {
-                        if (mediaPlayer.isPlaying) {
-
-                            mediaPlayer.stop()
-                            mediaPlayer.release()
-                        }
-                        //Log.d("Correct Answers", correctAnsList.size)
-                        showDialog(this, correctAnsList.size)
-                    }
-                    selectedOptionType="0"
-                    //  val intentSubmit = Intent(this, PurchasePacksActivity::class.java)
-                    // startActivity(intentSubmit)
-                } else {
-                    Toast.makeText(this, "Please select the Answer!!", Toast.LENGTH_SHORT).show()
-                }
            /* } catch (e:Exception)
             {
                 Log.e("Excerrr",":"+e.toString())
@@ -192,10 +168,92 @@ class MainActivity : ComponentActivity(), SongClickListener {
             // on below line we are setting audio
             progressbar_id.max=user.response.size
             percentData.text=qnumber.toString()+"/"+user.response.size.toString()
+
+            startTimer()
         } catch (e: Exception) {
             Log.e("Exception",":"+e.message)
             // on below line we are handling our exception.
             e.printStackTrace()
+        }
+    }
+    private fun moveToNextSong()
+    {
+
+            qnumber++
+            if (qnumber > user.response.size)
+                qnumber = user.response.size
+            progressbar_id.progress = qnumber
+            percentData.text = qnumber.toString() + "/" + user.response.size.toString()
+            Log.e("submit11", ":" + qnumber)
+
+            if (selectedOptionType == user.response[qnumber - 1].answer) {
+                Toast.makeText(this, "Correct Answer", Toast.LENGTH_SHORT).show()
+                correctAnsList.add(qnumber)
+            } else {
+                Toast.makeText(this, "Wrong Answer", Toast.LENGTH_SHORT).show()
+            }
+
+            if (qnumber < user.response.size) {
+                pause = false
+                // stopSound()
+                if (mediaPlayer.isPlaying) {
+
+                    mediaPlayer.stop()
+                    mediaPlayer.release()
+                }
+                // playAudio()
+                // playSound()
+                setUpAdapterData(user.response)
+                if(timerStarted) {
+                    timer?.cancel()
+                    timerStarted=false
+                }
+                startTimer()
+            } else {
+                if(timerStarted) {
+                    timer?.cancel()
+                    timerStarted=false
+                }
+                if (mediaPlayer.isPlaying) {
+
+                    mediaPlayer.stop()
+                    mediaPlayer.release()
+                }
+                //Log.d("Correct Answers", correctAnsList.size)
+                showDialog(this, correctAnsList.size)
+            }
+            selectedOptionType="0"
+            //  val intentSubmit = Intent(this, PurchasePacksActivity::class.java)
+            // startActivity(intentSubmit)
+
+    }
+    private fun startTimer()
+    {
+        var secs=0
+        durationTimeText?.text = secs.toString()
+        if(!timerStarted) {
+            timer = object : CountDownTimer(lmilliseconds, 1000) {
+                override fun onTick(p0: Long) {
+                    timerStarted = true
+
+                    secs++
+
+                    durationTimeText?.text = secs.toString()
+
+
+
+                }
+
+                override fun onFinish() {
+
+                    if(timerStarted) {
+                        timer?.cancel()
+                        timerStarted = false
+                    }
+                    moveToNextSong()
+
+                }
+            }.start()
         }
     }
     private fun readFromAsset(): String {

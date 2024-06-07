@@ -41,12 +41,26 @@
         app:layout_constraintTop_toBottomOf="@+id/progressbar_id" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/durationTimeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:text="1"
+        app:fontFamily="@font/kavoon"
+        android:layout_marginLeft="@dimen/_15sdp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_20ssp"
+        app:layout_constraintLeft_toRightOf="@+id/percentData"
+        app:layout_constraintRight_toLeftOf="@+id/skipButton"
+        app:layout_constraintTop_toBottomOf="@+id/progressbar_id" />
+
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/skipButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:text="@string/skip"
-        android:visibility="visible"
+        android:visibility="invisible"
         android:layout_marginRight="@dimen/_15sdp"
         android:textColor="@color/yellow_bg"
         android:textSize="@dimen/_15ssp"
