@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.telcovas.guessthesong.BaseActivity
+import com.telcovas.guessthesong.CommonMethods
 import com.telcovas.guessthesong.R
 import com.telcovas.guessthesong.databinding.ActivityMyWinesBinding
 
@@ -18,6 +19,9 @@ class MyWinsActivity : BaseActivity<ActivityMyWinesBinding>(ActivityMyWinesBindi
     override fun initialization(bindingScreen: ActivityMyWinesBinding) {
         selectAmountList = bindingScreen.selectAmountList
         bindingScreen.toolbarLayout.toolbarBack.setOnClickListener {
+            finish()
+        }
+        bindingScreen.toolbarLayout.toolbarmenu.setOnClickListener {
             finish()
         }
         localAdapter = MyWinsAdapter(this, movieList)

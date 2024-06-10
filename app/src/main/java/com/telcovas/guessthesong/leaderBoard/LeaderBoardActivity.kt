@@ -1,7 +1,6 @@
 package com.telcovas.guessthesong.leaderBoard
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
+
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +17,9 @@ class LeaderBoardActivity : BaseActivity<ActivityLeaderBoardBinding>(ActivityLea
     override fun initialization(bindingScreen: ActivityLeaderBoardBinding) {
         selectScoreList = bindingScreen.selectScoreList
         bindingScreen.toolbarLayout.toolbarBack.setOnClickListener {
+            finish()
+        }
+        bindingScreen.toolbarLayout.toolbarmenu.setOnClickListener {
             finish()
         }
         localAdapter = LeaderBoardAdapter(this, movieList)
