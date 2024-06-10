@@ -73,6 +73,7 @@ class MainActivity : ComponentActivity(), SongClickListener {
         durationTimeText= findViewById(R.id.durationTimeText)
         skipButton= findViewById(R.id.skipButton)
         playimg1.setOnClickListener {
+            try {
             if(pause){
                 mediaPlayer.seekTo(mediaPlayer.currentPosition)
                 mediaPlayer.start()
@@ -82,11 +83,22 @@ class MainActivity : ComponentActivity(), SongClickListener {
 
                 playSound()
             }
+            }
+            catch (e:Exception)
+            {
+
+            }
         }
         pauseSong.setOnClickListener {
-            if(mediaPlayer.isPlaying)
-                mediaPlayer.pause()
-            pause = true
+            try {
+                if (mediaPlayer.isPlaying)
+                    mediaPlayer.pause()
+                pause = true
+            }
+            catch (e:Exception)
+            {
+
+            }
         }
 
         reloadSong.setOnClickListener {
@@ -195,12 +207,15 @@ class MainActivity : ComponentActivity(), SongClickListener {
 
             if (qnumber < user.response.size) {
                 pause = false
-                // stopSound()
-                if (mediaPlayer.isPlaying) {
+                stopSound()
 
-                    mediaPlayer.stop()
-                    mediaPlayer.release()
-                }
+              /*  if (mediaPlayer != null ) {
+                    if (mediaPlayer.isPlaying) {
+
+                        mediaPlayer.stop()
+                        mediaPlayer.release()
+                    }
+                }*/
                 // playAudio()
                 // playSound()
                 setUpAdapterData(user.response)
@@ -477,13 +492,28 @@ class MainActivity : ComponentActivity(), SongClickListener {
 
     // 3. Stops playback
     fun stopSound() {
-        if (mediaPlayer != null) {
-            if (mediaPlayer?.isPlaying == true) {
-                mediaPlayer!!.stop()
-                mediaPlayer!!.release()
+        try {
+            if (mediaPlayer != null) {
+                if (mediaPlayer?.isPlaying == true) {
+                    mediaPlayer!!.stop()
+                    mediaPlayer!!.release()
 
+                }
+                //  mediaPlayer = null
             }
-            //  mediaPlayer = null
+        }
+        catch (e:java.lang.Exception)
+        {
+
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        if(timer!=null) {
+            timer?.cancel()
+            timerStarted = false
         }
     }
 

@@ -1,5 +1,6 @@
 package com.telcovas.guessthesong.purchasePacks
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +15,7 @@ import com.telcovas.guessthesong.model.PackageList
 import com.telcovas.guessthesong.model.Packinfo
 import com.telcovas.guessthesong.model.Quizinfo
 import com.telcovas.guessthesong.model.SongsList
+import com.telcovas.guessthesong.quizMenu.QuizMenuActivity
 
 class PurchasePacksActivity : AppCompatActivity() , PackClickListener {
 
@@ -55,6 +57,9 @@ class PurchasePacksActivity : AppCompatActivity() , PackClickListener {
     }
 
     override fun onSelectClicked(optionName: String?, type: String?) {
-        TODO("Not yet implemented")
+        Log.d("onSelectClicked", optionName.toString())
+        val inLogin = Intent(this, QuizMenuActivity::class.java)
+        startActivity(inLogin)
+        finish()
     }
 }
