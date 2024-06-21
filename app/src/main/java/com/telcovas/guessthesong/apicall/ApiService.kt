@@ -20,6 +20,8 @@ interface ApiService {
     @GET("LoginServlet?")
     suspend fun getTotalPlayers(@Query("reportType") reportType: String): List<QuizList>
 
+
+
 /*
     1..https://globicall.globicallservices.com/SongsQuizApp/SongQuestionList?reportType=questionList                     (QUESTIONS LIST)
 
