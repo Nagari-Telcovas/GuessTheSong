@@ -60,7 +60,7 @@ class LeaderBoardActivity : BaseActivity<ActivityLeaderBoardBinding>(ActivityLea
         viewModel.getUiState().observe(this) {
             when (it) {
                 is UiState.Success -> {
-                    var leaderBoardList = it as ArrayList<LeaderBoardList>
+                    var leaderBoardList = it.data as ArrayList<LeaderBoardList>
                     Log.e("success",":"+leaderBoardList)
                     localAdapter = LeaderBoardAdapter(this, leaderBoardList)
                     val packsLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
