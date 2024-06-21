@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.telcovas.guessthesong.R
 
 
-class LeaderBoardAdapter(private val context: Context, val productEntityList: List<LeaderBoardModel>)
+class LeaderBoardAdapter(private val context: Context, val productEntityList: List<LeaderBoardList>)
     : RecyclerView.Adapter<LeaderBoardAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, position: Int): ViewHolder {
@@ -38,15 +38,15 @@ class LeaderBoardAdapter(private val context: Context, val productEntityList: Li
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView/*binding.root*/) {
-        fun bindItems(productEntity: LeaderBoardModel, context: Context){
+        fun bindItems(productEntity: LeaderBoardList, context: Context){
             val countryName = itemView.findViewById<AppCompatTextView>(R.id.positionNumber)
             val matchName = itemView.findViewById<AppCompatTextView>(R.id.matchName)
             val scoreText = itemView.findViewById<AppCompatTextView>(R.id.scoreText)
             val positionNumberText = itemView.findViewById<AppCompatTextView>(R.id.positionNumberText)
-            countryName.text = productEntity.getTitle()
-            positionNumberText.text = productEntity.getCurrentText()
-            matchName.text = productEntity.getGenre()
-            scoreText.text = "${productEntity.getYear().toString()} pts"
+            countryName.text = productEntity.userId
+            positionNumberText.text = productEntity.total_points.toString()
+            matchName.text = productEntity.inserted_date
+            scoreText.text = "${productEntity.total_points} pts"
          /*   countryFlag.setImageDrawable(ContextCompat.getDrawable(context, productEntity.getYear()!!))
             itemView.setOnClickListener {
                 val iValidate = Intent(context, CountryWisePackActivity::class.java)

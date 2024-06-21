@@ -30,12 +30,7 @@ class LeaderBoardActivity : BaseActivity<ActivityLeaderBoardBinding>(ActivityLea
         bindingScreen.toolbarLayout.toolbarmenu.setOnClickListener {
             finish()
         }
-        localAdapter = LeaderBoardAdapter(this, movieList)
-        val packsLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        selectScoreList.layoutManager = packsLayoutManager
-        selectScoreList.itemAnimator = DefaultItemAnimator()
-        selectScoreList.adapter = localAdapter
-        prepareMovieData()
+   //     prepareMovieData()
         setupViewModel()
     }
 
@@ -60,17 +55,18 @@ class LeaderBoardActivity : BaseActivity<ActivityLeaderBoardBinding>(ActivityLea
     }
 
     private fun setupViewModel() {
-        viewModel = ViewModelProvider(
-            this,
-            ViewModelFactory(
-                ApiHelperImpl(RetrofitBuilder.apiService)
-
-            )
-        )[LeaderBoardViewModel::class.java]
+        viewModel = ViewModelProvider(this, ViewModelFactory(ApiHelperImpl(RetrofitBuilder.apiService)))[LeaderBoardViewModel::class.java]
 
         viewModel.getUiState().observe(this) {
             when (it) {
                 is UiState.Success -> {
+                    var leaderBoardList = it as ArrayList<LeaderBoardList>
+                    Log.e("success",":"+leaderBoardList)
+                    localAdapter = LeaderBoardAdapter(this, leaderBoardList)
+                    val packsLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+                    selectScoreList.layoutManager = packsLayoutManager
+                    selectScoreList.itemAnimator = DefaultItemAnimator()
+                    selectScoreList.adapter = localAdapter
                     Log.e("success",":"+it.data)
                     // progressBar.visibility = View.GONE
                     // renderList(it.data)

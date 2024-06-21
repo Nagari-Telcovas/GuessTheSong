@@ -1,9 +1,10 @@
 package com.telcovas.guessthesong.leaderBoard
-
-data class LeaderBoardList(  val user_id: String,
-                             val NumberOfquestion: String,
-                             val correct_answers: String,
-                             val total_points: String,
-                             val inserted_date: String,
-                             val userId: String,
+//class LeaderBoardList : ArrayList<LeaderBoardListItem>()
+data class LeaderBoardList(
+    val NumberOfquestion: Int,
+    val correct_answers: Int,
+    val inserted_date: String,
+    val total_points: Int,
+    val userId: String,
+    val user_id: Int
 )
