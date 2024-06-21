@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.telcovas.guessthesong.dashboard.MainViewModel
 import com.telcovas.guessthesong.leaderBoard.LeaderBoardViewModel
+import com.telcovas.guessthesong.login.LoginViewModel
 
 class ViewModelFactory(private val apiHelper: ApiHelper) :
     ViewModelProvider.NewInstanceFactory() {
@@ -15,6 +16,9 @@ class ViewModelFactory(private val apiHelper: ApiHelper) :
         }
         if (modelClass.isAssignableFrom(LeaderBoardViewModel::class.java)) {
             return LeaderBoardViewModel(apiHelper) as T
+        }
+        if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
+            return LoginViewModel(apiHelper) as T
         }
 
         throw IllegalArgumentException("Unknown class name")
