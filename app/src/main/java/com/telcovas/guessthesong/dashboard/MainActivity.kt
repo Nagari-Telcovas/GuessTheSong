@@ -1,4 +1,4 @@
-package com.telcovas.guessthesong
+package com.telcovas.guessthesong.dashboard
 
 import android.content.Context
 import android.content.Intent
@@ -18,9 +18,15 @@ import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
+import com.telcovas.guessthesong.R
+import com.telcovas.guessthesong.apicall.ApiHelperImpl
+import com.telcovas.guessthesong.apicall.RetrofitBuilder
+import com.telcovas.guessthesong.apicall.UiState
+import com.telcovas.guessthesong.apicall.ViewModelFactory
 import com.telcovas.guessthesong.model.AnswerAdapter
 import com.telcovas.guessthesong.model.Detail
 import com.telcovas.guessthesong.model.Quizinfo
@@ -58,6 +64,7 @@ class MainActivity : ComponentActivity(), SongClickListener {
     private var isAnswered:Boolean = false
 
     var lmilliseconds: Long = 60000
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -182,6 +189,7 @@ class MainActivity : ComponentActivity(), SongClickListener {
             percentData.text=qnumber.toString()+"/"+user.response.size.toString()
 
             startTimer()
+            setupViewModel()
         } catch (e: Exception) {
             Log.e("Exception",":"+e.message)
             // on below line we are handling our exception.
@@ -514,6 +522,37 @@ class MainActivity : ComponentActivity(), SongClickListener {
         if(timer!=null) {
             timer?.cancel()
             timerStarted = false
+        }
+    }
+
+    private fun setupViewModel() {
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelFactory(
+                ApiHelperImpl(RetrofitBuilder.apiService)
+
+            )
+        )[MainViewModel::class.java]
+
+        viewModel.getUiState().observe(this) {
+            when (it) {
+                is UiState.Success -> {
+                    Log.e("success",":"+it.data)
+                   // progressBar.visibility = View.GONE
+                   // renderList(it.data)
+                }
+                is UiState.Loading -> {
+                    Log.e("Loading",":1")
+                 //   progressBar.visibility = View.VISIBLE
+
+                }
+                is UiState.Error -> {
+                    //Handle Error
+                   // progressBar.visibility = View.GONE
+                    Log.e("Error",":roor"+it.message)
+                    Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                }
+            }
         }
     }
 

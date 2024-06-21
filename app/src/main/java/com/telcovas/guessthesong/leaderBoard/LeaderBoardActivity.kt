@@ -1,11 +1,19 @@
 package com.telcovas.guessthesong.leaderBoard
 
 
+import android.util.Log
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.telcovas.guessthesong.BaseActivity
 import com.telcovas.guessthesong.R
+import com.telcovas.guessthesong.apicall.ApiHelperImpl
+import com.telcovas.guessthesong.apicall.RetrofitBuilder
+import com.telcovas.guessthesong.apicall.UiState
+import com.telcovas.guessthesong.apicall.ViewModelFactory
+import com.telcovas.guessthesong.dashboard.MainViewModel
 import com.telcovas.guessthesong.databinding.ActivityLeaderBoardBinding
 
 class LeaderBoardActivity : BaseActivity<ActivityLeaderBoardBinding>(ActivityLeaderBoardBinding::inflate, R.string.leaderBoard) {
@@ -13,7 +21,7 @@ class LeaderBoardActivity : BaseActivity<ActivityLeaderBoardBinding>(ActivityLea
     private val movieList = ArrayList<LeaderBoardModel>()
     private lateinit var localAdapter: LeaderBoardAdapter
     private lateinit var selectScoreList: RecyclerView
-
+    private lateinit var viewModel: LeaderBoardViewModel
     override fun initialization(bindingScreen: ActivityLeaderBoardBinding) {
         selectScoreList = bindingScreen.selectScoreList
         bindingScreen.toolbarLayout.toolbarBack.setOnClickListener {
@@ -28,6 +36,7 @@ class LeaderBoardActivity : BaseActivity<ActivityLeaderBoardBinding>(ActivityLea
         selectScoreList.itemAnimator = DefaultItemAnimator()
         selectScoreList.adapter = localAdapter
         prepareMovieData()
+        setupViewModel()
     }
 
     private fun prepareMovieData() {
@@ -48,5 +57,36 @@ class LeaderBoardActivity : BaseActivity<ActivityLeaderBoardBinding>(ActivityLea
         movie = LeaderBoardModel("8", "th", "Antonio Conte 08", 490)
         movieList.add(movie)
         localAdapter.notifyDataSetChanged()
+    }
+
+    private fun setupViewModel() {
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelFactory(
+                ApiHelperImpl(RetrofitBuilder.apiService)
+
+            )
+        )[LeaderBoardViewModel::class.java]
+
+        viewModel.getUiState().observe(this) {
+            when (it) {
+                is UiState.Success -> {
+                    Log.e("success",":"+it.data)
+                    // progressBar.visibility = View.GONE
+                    // renderList(it.data)
+                }
+                is UiState.Loading -> {
+                    Log.e("Loading",":1")
+                    //   progressBar.visibility = View.VISIBLE
+
+                }
+                is UiState.Error -> {
+                    //Handle Error
+                    // progressBar.visibility = View.GONE
+                    Log.e("Error",":roor"+it.message)
+                    Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                }
+            }
+        }
     }
 }

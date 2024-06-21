@@ -5,10 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import com.telcovas.guessthesong.MainActivity
 import com.telcovas.guessthesong.R
 import com.telcovas.guessthesong.login.LoginActivity
-import com.telcovas.guessthesong.quizMenu.QuizMenuActivity
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
