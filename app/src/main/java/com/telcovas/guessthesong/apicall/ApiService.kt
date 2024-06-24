@@ -1,5 +1,6 @@
 package com.telcovas.guessthesong.apicall
 
+import com.telcovas.guessthesong.dashboard.InsertQuizResponse
 import com.telcovas.guessthesong.dashboard.QuizList
 import com.telcovas.guessthesong.leaderBoard.LeaderBoardOutput
 import com.telcovas.guessthesong.login.LoginResponse
@@ -22,6 +23,15 @@ interface ApiService {
 
     @GET("LoginServlet?")
     suspend fun getLogin(@Query("reportType") reportType: String,@Query("msisdn") msisdn: String,@Query("password") password: String): LoginResponse
+    @GET("InsertingUserDetails?")
+    suspend fun insertQuizDetails(@Query("reportType") reportType: String,
+                                  @Query("user_id") user_id: String,
+                                  @Query("question_id") question_id: String
+                                  ,@Query("selected_option") selected_option: String,
+                                  @Query("total_points") total_points: String
+                                  ,@Query("status") status: String,
+                                  @Query("type") type: String): InsertQuizResponse
+
 
 
 
