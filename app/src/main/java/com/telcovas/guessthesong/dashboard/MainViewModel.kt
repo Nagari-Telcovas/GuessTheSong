@@ -13,6 +13,7 @@ class MainViewModel(private val apiHelper: ApiHelper
 ) : ViewModel() {
 
     private val uiState = MutableLiveData<UiState<List<QuizList>>>()
+    private val responseState = MutableLiveData<UiState<InsertQuizResponse>>()
 
     init {
         fetchUsers("questionList")
@@ -31,8 +32,28 @@ class MainViewModel(private val apiHelper: ApiHelper
         }
     }
 
+     fun updateQuiz(reporrtType:String,user_id:String,question_id:String,
+                           selected_option:String,total_points:String,status:String,
+                           type: String) {
+        viewModelScope.launch {
+            uiState.postValue(UiState.Loading)
+            try {
+                val usersFromApi = apiHelper.insertQuizDetails(reporrtType,user_id,question_id,
+                    selected_option,total_points,status,type
+                )
+
+
+                responseState.postValue(UiState.Success(usersFromApi))
+            } catch (e: Exception) {
+                responseState.postValue(UiState.Error(e.toString()))
+            }
+        }
+    }
+
     fun getUiState(): LiveData<UiState<List<QuizList>>> {
         return uiState
     }
-
+    fun getResponseState(): LiveData<UiState<InsertQuizResponse>> {
+        return responseState
+    }
 }

@@ -14,7 +14,7 @@ class LoginViewModel(private val apiHelper: ApiHelper
 
     private val uiState = MutableLiveData<UiState<LoginResponse>>()
     init {
-        fetchLogin("userLogin","9032364590","telcovas")
+      //  fetchLogin("userLogin","9032364590","telcovas")
     }
 
      fun fetchLogin(reporrtType:String,msisdn: String,

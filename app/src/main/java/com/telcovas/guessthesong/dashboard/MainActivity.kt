@@ -32,12 +32,16 @@ import com.telcovas.guessthesong.model.Detail
 import com.telcovas.guessthesong.model.Quizinfo
 import com.telcovas.guessthesong.model.SongClickListener
 import com.telcovas.guessthesong.model.SongsList
+import com.telcovas.guessthesong.myWines.MyWinsActivity
 import com.telcovas.guessthesong.purchasePacks.PurchasePacksActivity
 import de.hdodenhof.circleimageview.CircleImageView
 
 class MainActivity : ComponentActivity(), SongClickListener {
 
     lateinit var setupAutoMoneyAdapter: AnswerAdapter
+    lateinit var setupquizAdapter: QuizListAdapter
+
+
     private lateinit var pauseSong: CircleImageView
     private lateinit var reloadSong: CircleImageView
     private lateinit var playimg1: CircleImageView
@@ -66,8 +70,13 @@ class MainActivity : ComponentActivity(), SongClickListener {
     var lmilliseconds: Long = 60000
     private lateinit var viewModel: MainViewModel
 
+    lateinit  var context:Context
+
+    lateinit var quizlist:List<QuizList>
+    var question_status="processing"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        context=this
         setContentView(R.layout.activity_main)
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         submitButton = findViewById(R.id.submitButton)
@@ -153,7 +162,31 @@ class MainActivity : ComponentActivity(), SongClickListener {
         submitButton.setOnClickListener {
 
             if (selectedOptionType != "0") {
-                moveToNextSong()
+               var ques_id= quizlist.get(qnumber).question_id
+                var totalmb=qnumber+1
+                var type=totalmb.toString()+"MB"
+
+
+
+                if (selectedOptionType ==quizlist[qnumber].correctOption) {
+                    question_status="processing"
+                    correctAnsList.add(qnumber)
+                } else {
+                    question_status="completed"
+                    if(qnumber==0)
+                    {
+                        ques_id = quizlist.get(qnumber).question_id
+                        totalmb = qnumber
+                        type = totalmb.toString() + "MB"
+                    }else {
+                        ques_id = quizlist.get(qnumber - 1).question_id
+                        totalmb = qnumber + 1
+                        type = totalmb.toString() + "MB"
+                    }
+                }
+
+                viewModel.updateQuiz("InsertingUserDetails","9032364590",ques_id,selectedOptionType,"100",question_status,type)
+
             } else {
                 Toast.makeText(this, "Please select the Answer!!", Toast.LENGTH_SHORT).show()
             }
@@ -179,14 +212,15 @@ class MainActivity : ComponentActivity(), SongClickListener {
           /*  val filePath = "songs.json" // Replace with your JSON file path
             val file = File(filePath)
             val jsonString = file.readText()*/
-            val jsonString = readFromAsset()
-             user = Gson().fromJson(jsonString, SongsList::class.java)
-            setUpAdapterData(user.response)
+
+         //   val jsonString = readFromAsset()
+          //   user = Gson().fromJson(jsonString, SongsList::class.java)
+          //  setUpAdapterData(user.response)
           //  setUpAdapterData(user.response.get(0).details)
-            Log.e("songurl",":"+user.response)
+         //   Log.e("songurl",":"+user.response)
             // on below line we are setting audio
-            progressbar_id.max=user.response.size
-            percentData.text=qnumber.toString()+"/"+user.response.size.toString()
+          //  progressbar_id.max=user.response.size
+          //  percentData.text=qnumber.toString()+"/"+user.response.size.toString()
 
             startTimer()
             setupViewModel()
@@ -200,20 +234,20 @@ class MainActivity : ComponentActivity(), SongClickListener {
     {
 
             qnumber++
-            if (qnumber > user.response.size)
-                qnumber = user.response.size
+            if (qnumber > quizlist.size)
+                qnumber = quizlist.size
             progressbar_id.progress = qnumber
-            percentData.text = qnumber.toString() + "/" + user.response.size.toString()
+            percentData.text = qnumber.toString() + "/" + quizlist.size.toString()
             Log.e("submit11", ":" + qnumber)
 
-            if (selectedOptionType == user.response[qnumber - 1].answer) {
+            if (selectedOptionType ==quizlist[qnumber - 1].correctOption) {
                 Toast.makeText(this, "Correct Answer", Toast.LENGTH_SHORT).show()
                 correctAnsList.add(qnumber)
             } else {
                 Toast.makeText(this, "Wrong Answer", Toast.LENGTH_SHORT).show()
             }
 
-            if (qnumber < user.response.size) {
+            if (qnumber < quizlist.size) {
                 pause = false
                 stopSound()
 
@@ -226,7 +260,7 @@ class MainActivity : ComponentActivity(), SongClickListener {
                 }*/
                 // playAudio()
                 // playSound()
-                setUpAdapterData(user.response)
+                setUpQuizAdapterData(quizlist)
                 if(timerStarted) {
                     timer?.cancel()
                     timerStarted=false
@@ -248,6 +282,61 @@ class MainActivity : ComponentActivity(), SongClickListener {
             selectedOptionType="0"
             //  val intentSubmit = Intent(this, PurchasePacksActivity::class.java)
             // startActivity(intentSubmit)
+
+    }
+
+    private fun moveToNextSonglocal()
+    {
+
+        qnumber++
+        if (qnumber > user.response.size)
+            qnumber = user.response.size
+        progressbar_id.progress = qnumber
+        percentData.text = qnumber.toString() + "/" + user.response.size.toString()
+        Log.e("submit11", ":" + qnumber)
+
+        if (selectedOptionType == user.response[qnumber - 1].answer) {
+            Toast.makeText(this, "Correct Answer", Toast.LENGTH_SHORT).show()
+            correctAnsList.add(qnumber)
+        } else {
+            Toast.makeText(this, "Wrong Answer", Toast.LENGTH_SHORT).show()
+        }
+
+        if (qnumber < user.response.size) {
+            pause = false
+            stopSound()
+
+            /*  if (mediaPlayer != null ) {
+                  if (mediaPlayer.isPlaying) {
+
+                      mediaPlayer.stop()
+                      mediaPlayer.release()
+                  }
+              }*/
+            // playAudio()
+            // playSound()
+            setUpAdapterData(user.response)
+            if(timerStarted) {
+                timer?.cancel()
+                timerStarted=false
+            }
+            startTimer()
+        } else {
+            if(timerStarted) {
+                timer?.cancel()
+                timerStarted=false
+            }
+            if (mediaPlayer.isPlaying) {
+
+                mediaPlayer.stop()
+                mediaPlayer.release()
+            }
+            //Log.d("Correct Answers", correctAnsList.size)
+            showDialog(this, correctAnsList.size)
+        }
+        selectedOptionType="0"
+        //  val intentSubmit = Intent(this, PurchasePacksActivity::class.java)
+        // startActivity(intentSubmit)
 
     }
     private fun startTimer()
@@ -273,7 +362,8 @@ class MainActivity : ComponentActivity(), SongClickListener {
                         timer?.cancel()
                         timerStarted = false
                     }
-                    moveToNextSong()
+                    showDialog(context, correctAnsList.size)
+                   // moveToNextSong()
 
                 }
             }.start()
@@ -417,7 +507,16 @@ class MainActivity : ComponentActivity(), SongClickListener {
             return this.currentPosition/1000
         }
 
+    private fun setUpQuizAdapterData(listData: List<QuizList>){
+        var quizListData = listData.get(qnumber).options
 
+     //   var quizListData =listData[qnumber] as ArrayList<Detail>
+        //var quizListData22 =quizListData.get(0).option1 as ArrayList<Detail>
+        Log.d("SongUrl22", quizListData.toString())
+        setupquizAdapter = QuizListAdapter(this, quizListData, this)
+        selectAmountList.adapter = setupquizAdapter
+
+    }
     private fun setUpAdapterData(listData: List<Quizinfo>){
 
         var quizListData =listData[qnumber].details as ArrayList<Detail>
@@ -476,7 +575,12 @@ class MainActivity : ComponentActivity(), SongClickListener {
 
     fun playSound() {
 
-        var audioUrl =  user.response.get(qnumber).songurl
+        Log.e("playSound",":"+qnumber)
+
+        var audioUrl =   quizlist.get(qnumber).question
+
+        Log.e("playSound",":"+audioUrl)
+       // var audioUrl =  user.response.get(qnumber).songurl
         //   if (mediaPlayer == null) {
         if(audioUrl.equals("whenyouarenotwithme"))
             mediaPlayer = MediaPlayer.create(this, R.raw.whenyouarenotwithme)
@@ -516,9 +620,12 @@ class MainActivity : ComponentActivity(), SongClickListener {
         }
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }
     override fun onDestroy() {
         super.onDestroy()
-
+        stopSound()
         if(timer!=null) {
             timer?.cancel()
             timerStarted = false
@@ -540,6 +647,10 @@ class MainActivity : ComponentActivity(), SongClickListener {
                     Log.e("success",":"+it.data)
                    // progressBar.visibility = View.GONE
                    // renderList(it.data)
+                    quizlist=it.data
+                    progressbar_id.max=quizlist.size
+                    percentData.text=qnumber.toString()+"/"+quizlist.size.toString()
+                    setUpQuizAdapterData(it.data)
                 }
                 is UiState.Loading -> {
                     Log.e("Loading",":1")
@@ -549,6 +660,30 @@ class MainActivity : ComponentActivity(), SongClickListener {
                 is UiState.Error -> {
                     //Handle Error
                    // progressBar.visibility = View.GONE
+                    Log.e("Error",":roor"+it.message)
+                    Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+        viewModel.getResponseState().observe(this)
+        {
+            when(it)
+            {
+                is UiState.Success -> {
+                    Log.e("success",":"+it.data)
+                    // progressBar.visibility = View.GONE
+                    // renderList(it.data)
+                    moveToNextSong()
+
+                }
+                is UiState.Loading -> {
+                    Log.e("Loading",":1")
+                    //   progressBar.visibility = View.VISIBLE
+
+                }
+                is UiState.Error -> {
+                    //Handle Error
+                    // progressBar.visibility = View.GONE
                     Log.e("Error",":roor"+it.message)
                     Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
                 }
