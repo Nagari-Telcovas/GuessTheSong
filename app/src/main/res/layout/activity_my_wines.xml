@@ -59,6 +59,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/userName"/>
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:visibility="gone"
                 android:id="@+id/totalQuizText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -70,6 +71,8 @@
                 app:layout_constraintTop_toBottomOf="@+id/demoPhoto"/>
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:visibility="gone"
+                android:id="@+id/totalQuiz"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_circle"
@@ -88,8 +91,8 @@
                 android:id="@+id/winesText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/wins"
-                android:layout_marginTop="@dimen/_15sdp"
+                android:text="@string/totalPlays"
+                android:layout_marginTop="@dimen/_12sdp"
                 app:layout_constraintLeft_toRightOf="@+id/totalQuizText"
                 app:layout_constraintRight_toLeftOf="@+id/losesText"
                 android:fontFamily="@font/kavoon"
@@ -97,13 +100,14 @@
                 app:layout_constraintTop_toBottomOf="@id/demoPhoto"/>
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/totalWins"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_circle"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:text="51"
+                android:text=""
+                android:padding="@dimen/_5sdp"
                 android:gravity="center"
-                android:paddingBottom="@dimen/_4sdp"
                 android:fontFamily="@font/kavoon"
                 android:textSize="@dimen/_16sdp"
                 android:textColor="@color/black"
@@ -112,6 +116,7 @@
                 app:layout_constraintRight_toRightOf="@+id/winesText"/>
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:visibility="gone"
                 android:id="@+id/losesText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -124,6 +129,8 @@
                 app:layout_constraintTop_toBottomOf="@+id/demoPhoto"/>
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:visibility="gone"
+                android:id="@+id/totalLoss"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_circle"

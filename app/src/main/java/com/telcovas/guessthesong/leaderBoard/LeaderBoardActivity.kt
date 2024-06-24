@@ -2,18 +2,17 @@ package com.telcovas.guessthesong.leaderBoard
 
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.telcovas.guessthesong.BaseActivity
+import com.telcovas.guessthesong.CommonMethods
 import com.telcovas.guessthesong.R
 import com.telcovas.guessthesong.apicall.ApiHelperImpl
 import com.telcovas.guessthesong.apicall.RetrofitBuilder
 import com.telcovas.guessthesong.apicall.UiState
 import com.telcovas.guessthesong.apicall.ViewModelFactory
-import com.telcovas.guessthesong.dashboard.MainViewModel
 import com.telcovas.guessthesong.databinding.ActivityLeaderBoardBinding
 
 class LeaderBoardActivity : BaseActivity<ActivityLeaderBoardBinding>(ActivityLeaderBoardBinding::inflate, R.string.leaderBoard) {
@@ -60,14 +59,12 @@ class LeaderBoardActivity : BaseActivity<ActivityLeaderBoardBinding>(ActivityLea
         viewModel.getUiState().observe(this) {
             when (it) {
                 is UiState.Success -> {
-                    var leaderBoardList = it.data as ArrayList<LeaderBoardList>
-                    Log.e("success",":"+leaderBoardList)
+                    var leaderBoardList = it.data as ArrayList<LeaderBoardOutput>
                     localAdapter = LeaderBoardAdapter(this, leaderBoardList)
-                    val packsLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-                    selectScoreList.layoutManager = packsLayoutManager
+                    selectScoreList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
                     selectScoreList.itemAnimator = DefaultItemAnimator()
                     selectScoreList.adapter = localAdapter
-                    Log.e("success",":"+it.data)
+                   // Log.e("success",":"+it.data)
                     // progressBar.visibility = View.GONE
                     // renderList(it.data)
                 }
@@ -77,10 +74,10 @@ class LeaderBoardActivity : BaseActivity<ActivityLeaderBoardBinding>(ActivityLea
 
                 }
                 is UiState.Error -> {
+                    CommonMethods.showMessage(this, it.message)
                     //Handle Error
                     // progressBar.visibility = View.GONE
                     Log.e("Error",":roor"+it.message)
-                    Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
                 }
             }
         }

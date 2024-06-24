@@ -9,9 +9,11 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import com.telcovas.guessthesong.R
+import com.telcovas.guessthesong.dashboard.UserQuizList
+import java.text.SimpleDateFormat
 
 
-class MyWinsAdapter(private val context: Context, val productEntityList: List<MyWinsModel>)
+class MyWinsAdapter(private val context: Context, val productEntityList: List<UserQuizList>)
     : RecyclerView.Adapter<MyWinsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, position: Int): ViewHolder {
@@ -28,13 +30,20 @@ class MyWinsAdapter(private val context: Context, val productEntityList: List<My
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bindItems(productEntity: MyWinsModel, context: Context){
+        fun bindItems(productEntity: UserQuizList, context: Context){
             val countryName = itemView.findViewById<AppCompatTextView>(R.id.matchDate)
             val matchName = itemView.findViewById<AppCompatTextView>(R.id.matchName)
             val scoreNumber = itemView.findViewById<AppCompatTextView>(R.id.scoreNumber)
-            countryName.text = productEntity.getTitle()
+         /*   countryName.text = productEntity.getTitle()
             matchName.text = productEntity.getGenre()
-            scoreNumber.text = productEntity.getYear()
+            scoreNumber.text = productEntity.getYear()*/
+            val parser = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+            // val formatter = SimpleDateFormat("EEEE MMM dd, yyyy HH:mm")
+            val formatter = SimpleDateFormat("dd-MM-yyyy")
+            val output: String = formatter.format(parser.parse(productEntity.inserted_date))
+            countryName.text = output
+            matchName.text = "${productEntity.correct_answers}/ ${productEntity.NumberOfquestion}"
+            scoreNumber.text = "${productEntity.total_points} pts"
            /* countryFlag.setImageDrawable(ContextCompat.getDrawable(context, productEntity.getYear()!!))
             itemView.setOnClickListener {
                 val iValidate = Intent(context, CountryWisePackActivity::class.java)

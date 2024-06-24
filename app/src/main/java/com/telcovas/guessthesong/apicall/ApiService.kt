@@ -1,11 +1,9 @@
 package com.telcovas.guessthesong.apicall
 
 import com.telcovas.guessthesong.dashboard.QuizList
-import com.telcovas.guessthesong.leaderBoard.LeaderBoardList
+import com.telcovas.guessthesong.leaderBoard.LeaderBoardOutput
 import com.telcovas.guessthesong.login.LoginResponse
-import io.reactivex.Observable
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
@@ -14,10 +12,10 @@ interface ApiService {
     suspend fun getSongQuestionList(@Query("reportType") reportType: String): List<QuizList>
 
     @GET("LoginServlet?")
-    suspend fun getLeaderBoardList(@Query("reportType") reportType: String): List<LeaderBoardList>
+    suspend fun getLeaderBoardList(@Query("reportType") reportType: String): List<LeaderBoardOutput>
 
     @GET("LoginServlet?")
-    suspend fun getuserPoints(@Query("reportType") reportType: String,@Query("msisdn") msisdn: String): List<QuizList>
+    suspend fun getuserPoints(@Query("reportType") reportType: String,@Query("msisdn") msisdn: String): QuizList
 
     @GET("LoginServlet?")
     suspend fun getTotalPlayers(@Query("reportType") reportType: String): List<QuizList>

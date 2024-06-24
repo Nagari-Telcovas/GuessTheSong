@@ -3,19 +3,15 @@ package com.telcovas.guessthesong.leaderBoard
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.telcovas.guessthesong.R
 
 
-class LeaderBoardAdapter(private val context: Context, val productEntityList: List<LeaderBoardList>)
+class LeaderBoardAdapter(private val context: Context, val productEntityList: List<LeaderBoardOutput>)
     : RecyclerView.Adapter<LeaderBoardAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, position: Int): ViewHolder {
@@ -29,7 +25,7 @@ class LeaderBoardAdapter(private val context: Context, val productEntityList: Li
     }
 
     override fun onBindViewHolder(holder: ViewHolder, @SuppressLint("RecyclerView") position: Int) {
-        holder.bindItems(productEntityList[position], context)
+        holder.bindItems(productEntityList[position], context, position+1)
         //holder.bind(productEntityList[position], clickListener, clickListenerImage, context)
     }
 
@@ -38,14 +34,14 @@ class LeaderBoardAdapter(private val context: Context, val productEntityList: Li
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView/*binding.root*/) {
-        fun bindItems(productEntity: LeaderBoardList, context: Context){
+        fun bindItems(productEntity: LeaderBoardOutput, context: Context, currentPos: Int){
             val countryName = itemView.findViewById<AppCompatTextView>(R.id.positionNumber)
             val matchName = itemView.findViewById<AppCompatTextView>(R.id.matchName)
             val scoreText = itemView.findViewById<AppCompatTextView>(R.id.scoreText)
-            val positionNumberText = itemView.findViewById<AppCompatTextView>(R.id.positionNumberText)
-            countryName.text = productEntity.userId
-            positionNumberText.text = productEntity.total_points.toString()
-            matchName.text = productEntity.inserted_date
+          //  val positionNumberText = itemView.findViewById<AppCompatTextView>(R.id.positionNumberText)
+            countryName.text = currentPos.toString()
+            //positionNumberText.text = productEntity.total_points.toString()
+            matchName.text = productEntity.userId
             scoreText.text = "${productEntity.total_points} pts"
          /*   countryFlag.setImageDrawable(ContextCompat.getDrawable(context, productEntity.getYear()!!))
             itemView.setOnClickListener {

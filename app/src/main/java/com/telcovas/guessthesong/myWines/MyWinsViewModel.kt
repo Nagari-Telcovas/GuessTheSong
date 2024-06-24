@@ -1,4 +1,4 @@
-package com.telcovas.guessthesong.leaderBoard
+package com.telcovas.guessthesong.myWines
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,22 +6,22 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.telcovas.guessthesong.apicall.ApiHelper
 import com.telcovas.guessthesong.apicall.UiState
+import com.telcovas.guessthesong.dashboard.QuizList
 import kotlinx.coroutines.launch
 
-class LeaderBoardViewModel(private val apiHelper: ApiHelper
-) : ViewModel() {
+class MyWinsViewModel(private val apiHelper: ApiHelper) : ViewModel() {
 
-    private val uiState = MutableLiveData<UiState<List<LeaderBoardOutput>>>()
+    private val uiState = MutableLiveData<UiState<QuizList>>()
 
     init {
-        fetchLeaders("LeaderBoard")
+        fetchLeaders("userPoints", "9704267248")
     }
 
-    private fun fetchLeaders(reporrtType:String) {
+    private fun fetchLeaders(reporrtType:String, msisdn: String) {
         viewModelScope.launch {
             uiState.postValue(UiState.Loading)
             try {
-                val usersFromApi = apiHelper.getLeaderBoardList(reporrtType)
+                val usersFromApi = apiHelper.getuserPoints(reporrtType, msisdn)
 
                 uiState.postValue(UiState.Success(usersFromApi))
             } catch (e: Exception) {
@@ -30,7 +30,7 @@ class LeaderBoardViewModel(private val apiHelper: ApiHelper
         }
     }
 
-    fun getUiState(): LiveData<UiState<List<LeaderBoardOutput>>> {
+    fun getUiState(): LiveData<UiState<QuizList>> {
         return uiState
     }
 
