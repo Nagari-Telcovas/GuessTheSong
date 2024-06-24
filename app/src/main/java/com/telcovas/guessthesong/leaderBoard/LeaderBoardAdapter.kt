@@ -41,8 +41,8 @@ class LeaderBoardAdapter(private val context: Context, val productEntityList: Li
           //  val positionNumberText = itemView.findViewById<AppCompatTextView>(R.id.positionNumberText)
             countryName.text = currentPos.toString()
             //positionNumberText.text = productEntity.total_points.toString()
-            matchName.text = productEntity.userId
-            scoreText.text = "${productEntity.total_points} pts"
+          //  matchName.text = productEntity.userId
+         //   scoreText.text = "${productEntity.total_points} pts"
          /*   countryFlag.setImageDrawable(ContextCompat.getDrawable(context, productEntity.getYear()!!))
             itemView.setOnClickListener {
                 val iValidate = Intent(context, CountryWisePackActivity::class.java)

@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import com.telcovas.guessthesong.R
-import com.telcovas.guessthesong.dashboard.UserQuizList
 import java.text.SimpleDateFormat
 
 

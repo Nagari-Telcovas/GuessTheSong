@@ -1,6 +1,8 @@
 package com.telcovas.guessthesong.leaderBoard
-//class LeaderBoardList : ArrayList<LeaderBoardListItem>()
-data class LeaderBoardOutput(
+
+class LeaderBoardOutput : ArrayList<LeaderBoardItem>()
+
+data class LeaderBoardItem(
     val NumberOfquestion: Int,
     val correct_answers: Int,
     val inserted_date: String,

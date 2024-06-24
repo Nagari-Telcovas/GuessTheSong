@@ -14,8 +14,6 @@ import com.telcovas.guessthesong.apicall.ApiHelperImpl
 import com.telcovas.guessthesong.apicall.RetrofitBuilder
 import com.telcovas.guessthesong.apicall.UiState
 import com.telcovas.guessthesong.apicall.ViewModelFactory
-import com.telcovas.guessthesong.dashboard.QuizList
-import com.telcovas.guessthesong.dashboard.UserQuizList
 import com.telcovas.guessthesong.databinding.ActivityMyWinesBinding
 
 class MyWinsActivity : BaseActivity<ActivityMyWinesBinding>(ActivityMyWinesBinding::inflate, R.string.wins) {
