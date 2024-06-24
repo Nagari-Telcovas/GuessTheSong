@@ -59,12 +59,14 @@ class LeaderBoardActivity : BaseActivity<ActivityLeaderBoardBinding>(ActivityLea
         viewModel.getUiState().observe(this) {
             when (it) {
                 is UiState.Success -> {
-                    var leaderBoardList = it.data as ArrayList<LeaderBoardOutput>
-                    localAdapter = LeaderBoardAdapter(this, leaderBoardList)
+                    Log.e("success",":"+it.data)
+                   var leaderBoardList = it.data as ArrayList<LeaderBoardItem>
+                    /* localAdapter = LeaderBoardAdapter(this, leaderBoardList)
                     selectScoreList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
                     selectScoreList.itemAnimator = DefaultItemAnimator()
-                    selectScoreList.adapter = localAdapter
-                   // Log.e("success",":"+it.data)
+                    selectScoreList.adapter = localAdapter*/
+
+                    Log.e("success11", ":$leaderBoardList")
                     // progressBar.visibility = View.GONE
                     // renderList(it.data)
                 }

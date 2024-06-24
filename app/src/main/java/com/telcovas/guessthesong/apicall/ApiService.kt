@@ -4,6 +4,7 @@ import com.telcovas.guessthesong.dashboard.InsertQuizResponse
 import com.telcovas.guessthesong.dashboard.QuizList
 import com.telcovas.guessthesong.leaderBoard.LeaderBoardOutput
 import com.telcovas.guessthesong.login.LoginResponse
+import com.telcovas.guessthesong.myWines.MyWinsOutput
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -16,7 +17,7 @@ interface ApiService {
     suspend fun getLeaderBoardList(@Query("reportType") reportType: String): List<LeaderBoardOutput>
 
     @GET("LoginServlet?")
-    suspend fun getuserPoints(@Query("reportType") reportType: String,@Query("msisdn") msisdn: String): QuizList
+    suspend fun getuserPoints(@Query("reportType") reportType: String,@Query("msisdn") msisdn: String): MyWinsOutput
 
     @GET("LoginServlet?")
     suspend fun getTotalPlayers(@Query("reportType") reportType: String): List<QuizList>

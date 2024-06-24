@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 
 class MyWinsViewModel(private val apiHelper: ApiHelper) : ViewModel() {
 
-    private val uiState = MutableLiveData<UiState<QuizList>>()
+    private val uiState = MutableLiveData<UiState<MyWinsOutput>>()
 
     init {
         fetchLeaders("userPoints", "9704267248")
@@ -30,7 +30,7 @@ class MyWinsViewModel(private val apiHelper: ApiHelper) : ViewModel() {
         }
     }
 
-    fun getUiState(): LiveData<UiState<QuizList>> {
+    fun getUiState(): LiveData<UiState<MyWinsOutput>> {
         return uiState
     }
 
