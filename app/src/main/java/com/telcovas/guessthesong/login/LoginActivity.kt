@@ -13,6 +13,7 @@ import com.telcovas.guessthesong.apicall.RetrofitBuilder
 import com.telcovas.guessthesong.apicall.UiState
 import com.telcovas.guessthesong.apicall.ViewModelFactory
 import com.telcovas.guessthesong.databinding.ActivityLoginBinding
+import com.telcovas.guessthesong.otpVerify.OtpVerifyActivity
 import com.telcovas.guessthesong.quizMenu.QuizMenuActivity
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::inflate, R.string.login) {
@@ -48,7 +49,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
                 is UiState.Success -> {
                     loginProgress.visibility = View.GONE
                     if(it.data.status == "true") {
-                        CommonMethods.intentCalling(this, QuizMenuActivity())
+                        CommonMethods.intentCalling(this, OtpVerifyActivity())
                         finish()
                     }
                     else

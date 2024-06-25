@@ -39,6 +39,18 @@
     <string name="getStarted">Lets get started</string>
     <string name="subNumberText">We will send you an One Time Password on this mobile number</string>
 
+    <!--  OTP Verification  -->
+    <string name="verification">Verification</string>
+    <string name="verifyOtp">OTP Verification</string>
+    <string name="resendOTP">Resend OTP</string>
+    <string name="fillOtp">Please enter 6 digit OTP!</string>
+    <string name="otpContent">Enter the OTP send to registered mobile</string>
+    <string name="resendText">Didn\'t receive the OTP?</string>
+    <string name="resendText2">RESEND</string>
+    <string name="otpCheck">Otp didn\'t matched, Please try again!</string>
+    <string name="validateOtp">Your OTP validated Successfully.</string>
+    <string name="proceed">Verify &amp; Proceed</string>
+
     <!--  Country Code  -->
     <string name="search_hint">Search…</string>
     <string name="search">Search</string>
