@@ -31,6 +31,8 @@ class MyWinsActivity : BaseActivity<ActivityMyWinesBinding>(ActivityMyWinesBindi
         selectAmountList = bindingScreen.selectAmountList
         winesText = bindingScreen.totalWins
         winsProgress = bindingScreen.winsProgress.progressView
+        bindingScreen.userName.text = "Guest"
+        bindingScreen.subTitle.text = "${CommonMethods.getSharedPreference(this, "countryCode")} ${CommonMethods.getSharedPreference(this, "msisdn")}"
         bindingScreen.toolbarLayout.toolbarBack.setOnClickListener {
             finish()
         }

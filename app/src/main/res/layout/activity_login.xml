@@ -142,4 +142,15 @@
             app:layout_constraintTop_toBottomOf="@+id/createAccount" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
+    <include
+        android:visibility="invisible"
+        android:id="@+id/loginProgress"
+        layout="@layout/progress_bar_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

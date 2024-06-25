@@ -1,79 +1,69 @@
 package com.telcovas.guessthesong.login
 
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
-import androidx.appcompat.widget.AppCompatButton
-import androidx.appcompat.widget.AppCompatEditText
+import android.view.View
+import android.widget.ProgressBar
 import androidx.lifecycle.ViewModelProvider
+import com.telcovas.guessthesong.BaseActivity
 import com.telcovas.guessthesong.CommonMethods
 import com.telcovas.guessthesong.R
 import com.telcovas.guessthesong.apicall.ApiHelperImpl
 import com.telcovas.guessthesong.apicall.RetrofitBuilder
 import com.telcovas.guessthesong.apicall.UiState
 import com.telcovas.guessthesong.apicall.ViewModelFactory
-import com.telcovas.guessthesong.dashboard.MainViewModel
+import com.telcovas.guessthesong.databinding.ActivityLoginBinding
 import com.telcovas.guessthesong.quizMenu.QuizMenuActivity
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::inflate, R.string.login) {
     private lateinit var viewModel: LoginViewModel
-    lateinit var phoneNumber: AppCompatEditText
+    private lateinit var loginProgress: ProgressBar
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-        phoneNumber = findViewById(R.id.phoneNumberOtp)
-
-        findViewById<AppCompatButton>(R.id.submitButton).setOnClickListener {
-           // setupViewModel()
-            if (CommonMethods.isEmpty(phoneNumber)) {
-                phoneNumber.error = getString(R.string.requiredMsisdn)
-                phoneNumber.requestFocus()
-            }else if(phoneNumber.length() < 8) {
-                phoneNumber.error = getString(R.string.numberLength)
-                phoneNumber.requestFocus()
+    override fun initialization(bindingScreen: ActivityLoginBinding) {
+        loginProgress = bindingScreen.loginProgress.progressView
+        bindingScreen.submitButton.setOnClickListener {
+            if (CommonMethods.isEmpty(bindingScreen.phoneNumberOtp)) {
+                bindingScreen.phoneNumberOtp.error = getString(R.string.requiredMsisdn)
+                bindingScreen.phoneNumberOtp.requestFocus()
+            }else if(bindingScreen.phoneNumberOtp.length() < 8) {
+                bindingScreen.phoneNumberOtp.error = getString(R.string.numberLength)
+                bindingScreen.phoneNumberOtp.requestFocus()
             }
             else {
-                viewModel.fetchLogin("userLogin", phoneNumber.text.toString(), "telcovas")
+                CommonMethods.setSharedPreference(this, "countryCode", "+${bindingScreen.countryPicker.selectedCountryCode}")
+                CommonMethods.setSharedPreference(this, "msisdn", bindingScreen.phoneNumberOtp.text.toString())
+                viewModel.fetchLogin("userLogin", "+${bindingScreen.countryPicker.selectedCountryCode} ${bindingScreen.phoneNumberOtp.text.toString()}", "telcovas")
             }
         }
         setupViewModel()
     }
-    private fun setupViewModel() {
-        viewModel = ViewModelProvider(
-            this,
-            ViewModelFactory(
-                ApiHelperImpl(RetrofitBuilder.apiService)
 
-            )
-        )[LoginViewModel::class.java]
+    private fun setupViewModel() {
+        loginProgress.visibility = View.VISIBLE
+        viewModel = ViewModelProvider(
+            this, ViewModelFactory(ApiHelperImpl(RetrofitBuilder.apiService)))[LoginViewModel::class.java]
 
         viewModel.getUiState().observe(this) {
             when (it) {
                 is UiState.Success -> {
-                    Log.e("success",":"+it.data.status)
-                    // progressBar.visibility = View.GONE
-                    // renderList(it.data)
-                    if(it.data.status=="true") {
+                    loginProgress.visibility = View.GONE
+                    if(it.data.status == "true") {
                         CommonMethods.intentCalling(this, QuizMenuActivity())
                         finish()
                     }
                     else
-                        Toast.makeText(this,"Please enter valid mobile number",Toast.LENGTH_SHORT).show()
+                        CommonMethods.showMessage(this,"Please enter valid mobile number")
 
                 }
                 is UiState.Loading -> {
                     Log.e("Loading",":1")
-                    //   progressBar.visibility = View.VISIBLE
+                    loginProgress.visibility = View.VISIBLE
 
                 }
                 is UiState.Error -> {
-                    //Handle Error
-                    // progressBar.visibility = View.GONE
+                    loginProgress.visibility = View.GONE
                     Log.e("Error",":roor"+it.message)
-                    Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                    CommonMethods.showMessage(this, it.message)
                 }
             }
         }
