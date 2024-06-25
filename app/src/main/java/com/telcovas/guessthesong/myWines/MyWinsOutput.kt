@@ -3,6 +3,7 @@ package com.telcovas.guessthesong.myWines
 data class MyWinsOutput(
     val userId: String,
     val maxPoint: String,
+    val totalPlayers: String,
     val userList: List<UserQuizList>)
 
 data class UserQuizList(

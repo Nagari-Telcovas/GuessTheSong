@@ -55,7 +55,7 @@ class MyWinsActivity : BaseActivity<ActivityMyWinesBinding>(ActivityMyWinesBindi
             when (it) {
                 is UiState.Success -> {
                     var winsQuizList = it.data.userList as ArrayList<UserQuizList>
-                    winesText.text = it.data.maxPoint
+                    winesText.text = it.data.totalPlayers
                     localAdapter = MyWinsAdapter(this, winsQuizList)
                     selectAmountList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
                     selectAmountList.itemAnimator = DefaultItemAnimator()

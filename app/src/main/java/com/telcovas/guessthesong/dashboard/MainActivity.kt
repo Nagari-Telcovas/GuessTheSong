@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
 import android.widget.ProgressBar
@@ -15,6 +16,7 @@ import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
@@ -22,6 +24,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
+import com.telcovas.guessthesong.CommonMethods
 import com.telcovas.guessthesong.R
 import com.telcovas.guessthesong.apicall.ApiHelperImpl
 import com.telcovas.guessthesong.apicall.RetrofitBuilder
@@ -34,6 +37,8 @@ import com.telcovas.guessthesong.model.SongClickListener
 import com.telcovas.guessthesong.model.SongsList
 import com.telcovas.guessthesong.myWines.MyWinsActivity
 import com.telcovas.guessthesong.purchasePacks.PurchasePacksActivity
+import com.telcovas.guessthesong.quizMenu.QuizMenuActivity
+import com.telcovas.guessthesong.utils.Constants
 import de.hdodenhof.circleimageview.CircleImageView
 
 class MainActivity : ComponentActivity(), SongClickListener {
@@ -74,10 +79,13 @@ class MainActivity : ComponentActivity(), SongClickListener {
 
     lateinit var quizlist:List<QuizList>
     var question_status="processing"
+    //lateinit  var Loggedinmsisdn:String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         context=this
         setContentView(R.layout.activity_main)
+       // Loggedinmsisdn= CommonMethods.getSharedPreference(this, "countryCode")+""+CommonMethods.getSharedPreference(this, "mobileNumber")
+
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         submitButton = findViewById(R.id.submitButton)
         playimg1 = findViewById(R.id.playSong)
@@ -178,19 +186,21 @@ class MainActivity : ComponentActivity(), SongClickListener {
                     correctAnsList.add(qnumber)
                 } else {
                     question_status="completed"
-                    if(qnumber==0)
-                    {
-                        ques_id = quizlist.get(qnumber).question_id
-                        totalmb = qnumber
-                        type = totalmb.toString() + "MB"
-                    }else {
-                        ques_id = quizlist.get(qnumber - 1).question_id
-                        totalmb = qnumber + 1
-                        type = totalmb.toString() + "MB"
-                    }
-                }
+                    showDialog(this, correctAnsList.size)
 
-                viewModel.updateQuiz("InsertingUserDetails","9032364590",ques_id,selectedOptionType,"100",question_status,type)
+                }
+                if(qnumber==0)
+                {
+                    ques_id = quizlist.get(qnumber).question_id
+                    totalmb = qnumber+1
+                    type = totalmb.toString() + "MB"
+                }else {
+                    ques_id = quizlist.get(qnumber - 1).question_id
+                    totalmb = qnumber + 1
+                    type = totalmb.toString() + "MB"
+                }
+                Log.e("Loggedinmsisdn", ":" + Constants.Loggedinmsisdn)
+                viewModel.updateQuiz("InsertingUserDetails",Constants.Loggedinmsisdn,ques_id,selectedOptionType,"100",question_status,type)
 
             } else {
                 Toast.makeText(this, "Please select the Answer!!", Toast.LENGTH_SHORT).show()
@@ -229,6 +239,13 @@ class MainActivity : ComponentActivity(), SongClickListener {
 
             startTimer()
             setupViewModel()
+
+            onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+
+                    onBackClickedDialog()
+                }
+            })
         } catch (e: Exception) {
             Log.e("Exception",":"+e.message)
             // on below line we are handling our exception.
@@ -245,12 +262,14 @@ class MainActivity : ComponentActivity(), SongClickListener {
             percentData.text = qnumber.toString() + "/" + quizlist.size.toString()
             Log.e("submit11", ":" + qnumber)
 
-            if (selectedOptionType ==quizlist[qnumber - 1].correctOption) {
+           /* if (selectedOptionType ==quizlist[qnumber - 1].correctOption) {
                 Toast.makeText(this, "Correct Answer", Toast.LENGTH_SHORT).show()
                 correctAnsList.add(qnumber)
             } else {
                 Toast.makeText(this, "Wrong Answer", Toast.LENGTH_SHORT).show()
-            }
+            }*/
+
+        Log.e("submit22", ":" + quizlist.size)
 
             if (qnumber < quizlist.size) {
                 pause = false
@@ -515,9 +534,11 @@ class MainActivity : ComponentActivity(), SongClickListener {
     private fun setUpQuizAdapterData(listData: List<QuizList>){
         var quizListData = listData.get(qnumber).options
 
+        Log.d("setUpQuizAdapterData",":"+qnumber+"::"+quizListData.toString())
+
      //   var quizListData =listData[qnumber] as ArrayList<Detail>
         //var quizListData22 =quizListData.get(0).option1 as ArrayList<Detail>
-        Log.d("SongUrl22", quizListData.toString())
+     //   Log.d("SongUrl22", quizListData.toString())
         setupquizAdapter = QuizListAdapter(this, quizListData, this)
         selectAmountList.adapter = setupquizAdapter
 
@@ -536,6 +557,7 @@ class MainActivity : ComponentActivity(), SongClickListener {
         val builder = AlertDialog.Builder(this).create()
         val view = layoutInflater.inflate(R.layout.dialog_complete,null)
         val  button = view.findViewById<TextView>(R.id.submittv)
+        val  exitbutton = view.findViewById<TextView>(R.id.exittv)
         val messageSelectedText = view.findViewById<TextView>(R.id.messageSelectedText)
         val text_msg = view.findViewById<TextView>(R.id.text_msg)
         val text_points = view.findViewById<TextView>(R.id.text_points)
@@ -544,20 +566,28 @@ class MainActivity : ComponentActivity(), SongClickListener {
 
 
 
-        messageSelectedText.text = "Your Score is ${correctAnswer}/5"
+       // messageSelectedText.text = "Your Score is ${correctAnswer}/5"
 
         if(correctAnswer<5)
         {
-            val wans=5-correctAnswer
-            text_msg.text = "You have given ${wans} wrong answers but"
+           // val wans=5-correctAnswer
+            val wans=100*qnumber
+           // text_msg.text = "You have given ${wans} wrong answers but"
+            text_msg.text = "Sorry, the answer is incorrect. You won ${wans} MB amount of data!"
             text_msg.visibility= View.VISIBLE
-            text_points.text = "You Got 50 Points"
+           // text_points.text = "You Got 50 Points"
         }
 
         builder.setView(view)
         button.setOnClickListener {
             builder.dismiss()
             val inLogin = Intent(context, PurchasePacksActivity::class.java)
+            startActivity(inLogin)
+            finish()
+        }
+        exitbutton.setOnClickListener {
+            builder.dismiss()
+            val inLogin = Intent(context, QuizMenuActivity::class.java)
             startActivity(inLogin)
             finish()
         }
@@ -678,6 +708,8 @@ class MainActivity : ComponentActivity(), SongClickListener {
                     Log.e("success",":"+it.data)
                     // progressBar.visibility = View.GONE
                     // renderList(it.data)
+                   // if(it.data.status=="Created")
+                    if(question_status=="processing")
                     moveToNextSong()
 
                 }
@@ -695,7 +727,30 @@ class MainActivity : ComponentActivity(), SongClickListener {
             }
         }
     }
+    private fun onBackClickedDialog(){
 
+
+        val builder = AlertDialog.Builder(this).create()
+        val view = layoutInflater.inflate(R.layout.dialog_exit,null)
+        val  okbutton = view.findViewById<TextView>(R.id.okData)
+
+        val  cancelbutton = view.findViewById<TextView>(R.id.cancelText)
+
+        builder.setView(view)
+        okbutton.setOnClickListener {
+            builder.dismiss()
+
+            finish()
+        }
+        cancelbutton.setOnClickListener {
+            builder.dismiss()
+
+        }
+        builder.setCanceledOnTouchOutside(false)
+        builder.show()
+
+
+    }
 }
 
 /*@Composable

@@ -69,4 +69,7 @@
     <string name="action_settings">Settings</string>
     <string name="success">Success!</string>
     <string name="fail">Fail!</string>
+    <string name="exit_text">Do you want to quit?</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
 </resources>

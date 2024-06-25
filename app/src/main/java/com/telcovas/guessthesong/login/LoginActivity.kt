@@ -15,6 +15,8 @@ import com.telcovas.guessthesong.apicall.ViewModelFactory
 import com.telcovas.guessthesong.databinding.ActivityLoginBinding
 import com.telcovas.guessthesong.otpVerify.OtpVerifyActivity
 import com.telcovas.guessthesong.quizMenu.QuizMenuActivity
+import com.telcovas.guessthesong.utils.Constants
+import com.telcovas.guessthesong.utils.LoadingUtils
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::inflate, R.string.login) {
     private lateinit var viewModel: LoginViewModel
@@ -31,6 +33,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
                 bindingScreen.phoneNumberOtp.requestFocus()
             }
             else {
+                Constants.Loggedinmsisdn=bindingScreen.countryPicker.selectedCountryCode.trim()+bindingScreen.phoneNumberOtp.text.toString().trim()
+
+
                 CommonMethods.setSharedPreference(this, "countryCode", "+${bindingScreen.countryPicker.selectedCountryCode}")
                 CommonMethods.setSharedPreference(this, "msisdn", bindingScreen.phoneNumberOtp.text.toString())
                 viewModel.fetchLogin("userLogin", "+${bindingScreen.countryPicker.selectedCountryCode} ${bindingScreen.phoneNumberOtp.text.toString()}", "telcovas")
@@ -48,6 +53,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
             when (it) {
                 is UiState.Success -> {
                     loginProgress.visibility = View.GONE
+                    LoadingUtils.hideDialog()
                     if(it.data.status == "true") {
                         CommonMethods.intentCalling(this, OtpVerifyActivity())
                         finish()
@@ -59,10 +65,12 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
                 is UiState.Loading -> {
                     Log.e("Loading",":1")
                     loginProgress.visibility = View.VISIBLE
+                    LoadingUtils.showDialog(this@LoginActivity,true)
 
                 }
                 is UiState.Error -> {
                     loginProgress.visibility = View.GONE
+                    LoadingUtils.hideDialog()
                     Log.e("Error",":roor"+it.message)
                     CommonMethods.showMessage(this, it.message)
                 }
