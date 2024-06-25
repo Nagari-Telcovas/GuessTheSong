@@ -2,6 +2,8 @@ package com.telcovas.guessthesong.myWines
 
 
 import android.util.Log
+import android.view.View
+import android.widget.ProgressBar
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -23,10 +25,12 @@ class MyWinsActivity : BaseActivity<ActivityMyWinesBinding>(ActivityMyWinesBindi
     private lateinit var selectAmountList: RecyclerView
     private lateinit var winesText: AppCompatTextView
     private lateinit var winViewModel: MyWinsViewModel
+    private lateinit var winsProgress: ProgressBar
 
     override fun initialization(bindingScreen: ActivityMyWinesBinding) {
         selectAmountList = bindingScreen.selectAmountList
         winesText = bindingScreen.totalWins
+        winsProgress = bindingScreen.winsProgress.progressView
         bindingScreen.toolbarLayout.toolbarBack.setOnClickListener {
             finish()
         }
@@ -39,7 +43,35 @@ class MyWinsActivity : BaseActivity<ActivityMyWinesBinding>(ActivityMyWinesBindi
         selectAmountList.itemAnimator = DefaultItemAnimator()
         selectAmountList.adapter = localAdapter*/
         setupViewModel()
-       // prepareMovieData()
+    }
+
+
+    private fun setupViewModel() {
+        winViewModel = ViewModelProvider(this, ViewModelFactory(ApiHelperImpl(RetrofitBuilder.apiService)))[MyWinsViewModel::class.java]
+
+        winViewModel.getUiState().observe(this) {
+            when (it) {
+                is UiState.Success -> {
+                    var winsQuizList = it.data.userList as ArrayList<UserQuizList>
+                    winesText.text = it.data.maxPoint
+                    localAdapter = MyWinsAdapter(this, winsQuizList)
+                    selectAmountList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+                    selectAmountList.itemAnimator = DefaultItemAnimator()
+                    selectAmountList.adapter = localAdapter
+                    winsProgress.visibility = View.GONE
+                }
+                is UiState.Loading -> {
+                    Log.e("Loading",":1")
+                    //   progressBar.visibility = View.VISIBLE
+
+                }
+                is UiState.Error -> {
+                    CommonMethods.showMessage(this, it.message)
+                    // progressBar.visibility = View.GONE
+                    Log.e("Error",":roor"+it.message)
+                }
+            }
+        }
     }
 
     private fun prepareMovieData() {
@@ -62,34 +94,4 @@ class MyWinsActivity : BaseActivity<ActivityMyWinesBinding>(ActivityMyWinesBindi
         localAdapter.notifyDataSetChanged()
     }
 
-    private fun setupViewModel() {
-        winViewModel = ViewModelProvider(this, ViewModelFactory(ApiHelperImpl(RetrofitBuilder.apiService)))[MyWinsViewModel::class.java]
-
-        winViewModel.getUiState().observe(this) {
-            when (it) {
-                is UiState.Success -> {
-                    var winsQuizList = it.data.userList as ArrayList<UserQuizList>
-                    winesText.text = it.data.maxPoint
-                    localAdapter = MyWinsAdapter(this, winsQuizList)
-                    selectAmountList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-                    selectAmountList.itemAnimator = DefaultItemAnimator()
-                    selectAmountList.adapter = localAdapter
-                    // Log.e("success",":"+it.data)
-                    // progressBar.visibility = View.GONE
-                    // renderList(it.data)
-                }
-                is UiState.Loading -> {
-                    Log.e("Loading",":1")
-                    //   progressBar.visibility = View.VISIBLE
-
-                }
-                is UiState.Error -> {
-                    CommonMethods.showMessage(this, it.message)
-                    //Handle Error
-                    // progressBar.visibility = View.GONE
-                    Log.e("Error",":roor"+it.message)
-                }
-            }
-        }
-    }
 }

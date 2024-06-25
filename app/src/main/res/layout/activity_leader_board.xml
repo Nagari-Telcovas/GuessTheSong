@@ -46,11 +46,12 @@ tools:context=".leaderBoard.LeaderBoardActivity">
             app:layout_constraintTop_toBottomOf="@+id/trophyPhoto"/>
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/totalRank"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/shape_circle"
             android:layout_marginTop="@dimen/_10sdp"
-            android:text="01"
+            android:text=""
             android:gravity="center"
             android:paddingBottom="@dimen/_4sdp"
             android:fontFamily="@font/kavoon"
@@ -73,11 +74,12 @@ tools:context=".leaderBoard.LeaderBoardActivity">
             app:layout_constraintTop_toBottomOf="@+id/trophyPhoto"/>
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/totalPlays"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/shape_circle"
             android:layout_marginTop="@dimen/_10sdp"
-            android:text="12"
+            android:text=""
             android:gravity="center"
             android:paddingBottom="@dimen/_4sdp"
             android:fontFamily="@font/kavoon"
@@ -128,6 +130,16 @@ tools:context=".leaderBoard.LeaderBoardActivity">
         app:layout_constraintBottom_toBottomOf="parent"
         tools:itemCount="2"
         tools:listitem="@layout/item_leader_board" />
+
+    <include
+        android:id="@+id/leaderProgress"
+        layout="@layout/progress_bar_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

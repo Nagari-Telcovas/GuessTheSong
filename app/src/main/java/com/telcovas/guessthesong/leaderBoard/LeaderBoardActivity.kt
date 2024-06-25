@@ -2,6 +2,9 @@ package com.telcovas.guessthesong.leaderBoard
 
 
 import android.util.Log
+import android.view.View
+import android.widget.ProgressBar
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,16 +24,55 @@ class LeaderBoardActivity : BaseActivity<ActivityLeaderBoardBinding>(ActivityLea
     private lateinit var localAdapter: LeaderBoardAdapter
     private lateinit var selectScoreList: RecyclerView
     private lateinit var viewModel: LeaderBoardViewModel
+    private lateinit var totalPlays: AppCompatTextView
+    private lateinit var totalRank: AppCompatTextView
+    private lateinit var leaderProgress: ProgressBar
+
     override fun initialization(bindingScreen: ActivityLeaderBoardBinding) {
         selectScoreList = bindingScreen.selectScoreList
+        totalPlays = bindingScreen.totalPlays
+        totalRank = bindingScreen.totalRank
+        leaderProgress = bindingScreen.leaderProgress.progressView
         bindingScreen.toolbarLayout.toolbarBack.setOnClickListener {
             finish()
         }
         bindingScreen.toolbarLayout.toolbarmenu.setOnClickListener {
             finish()
         }
-   //     prepareMovieData()
+       // leaderProgress.visibility = View.VISIBLE
         setupViewModel()
+    }
+
+    private fun setupViewModel() {
+
+        viewModel = ViewModelProvider(this, ViewModelFactory(ApiHelperImpl(RetrofitBuilder.apiService)))[LeaderBoardViewModel::class.java]
+
+        viewModel.getUiState().observe(this) {
+            when (it) {
+                is UiState.Success -> {
+                   var leaderBoardList = it.data.getUserData as ArrayList<LeaderBoardItem>
+                    totalPlays.text = it.data.totalPlayers
+                    if (it.data.rank.isNotEmpty())
+                        totalRank.text = it.data.rank
+                    else
+                        totalRank.text = "01"
+                    localAdapter = LeaderBoardAdapter(this, leaderBoardList)
+                    selectScoreList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+                    selectScoreList.itemAnimator = DefaultItemAnimator()
+                    selectScoreList.adapter = localAdapter
+                    leaderProgress.visibility = View.GONE
+                }
+                is UiState.Loading -> {
+                    Log.e("Loading",":1")
+                    leaderProgress.visibility = View.VISIBLE
+
+                }
+                is UiState.Error -> {
+                    CommonMethods.showMessage(this, it.message)
+                    Log.e("Error",":roor"+it.message)
+                }
+            }
+        }
     }
 
     private fun prepareMovieData() {
@@ -51,37 +93,5 @@ class LeaderBoardActivity : BaseActivity<ActivityLeaderBoardBinding>(ActivityLea
         movie = LeaderBoardModel("8", "th", "Antonio Conte 08", 490)
         movieList.add(movie)
         localAdapter.notifyDataSetChanged()
-    }
-
-    private fun setupViewModel() {
-        viewModel = ViewModelProvider(this, ViewModelFactory(ApiHelperImpl(RetrofitBuilder.apiService)))[LeaderBoardViewModel::class.java]
-
-        viewModel.getUiState().observe(this) {
-            when (it) {
-                is UiState.Success -> {
-                    Log.e("success",":"+it.data)
-                   var leaderBoardList = it.data as ArrayList<LeaderBoardItem>
-                    /* localAdapter = LeaderBoardAdapter(this, leaderBoardList)
-                    selectScoreList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-                    selectScoreList.itemAnimator = DefaultItemAnimator()
-                    selectScoreList.adapter = localAdapter*/
-
-                    Log.e("success11", ":$leaderBoardList")
-                    // progressBar.visibility = View.GONE
-                    // renderList(it.data)
-                }
-                is UiState.Loading -> {
-                    Log.e("Loading",":1")
-                    //   progressBar.visibility = View.VISIBLE
-
-                }
-                is UiState.Error -> {
-                    CommonMethods.showMessage(this, it.message)
-                    //Handle Error
-                    // progressBar.visibility = View.GONE
-                    Log.e("Error",":roor"+it.message)
-                }
-            }
-        }
     }
 }

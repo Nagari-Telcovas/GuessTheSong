@@ -33,9 +33,6 @@ class MyWinsAdapter(private val context: Context, val productEntityList: List<Us
             val countryName = itemView.findViewById<AppCompatTextView>(R.id.matchDate)
             val matchName = itemView.findViewById<AppCompatTextView>(R.id.matchName)
             val scoreNumber = itemView.findViewById<AppCompatTextView>(R.id.scoreNumber)
-         /*   countryName.text = productEntity.getTitle()
-            matchName.text = productEntity.getGenre()
-            scoreNumber.text = productEntity.getYear()*/
             val parser = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
             // val formatter = SimpleDateFormat("EEEE MMM dd, yyyy HH:mm")
             val formatter = SimpleDateFormat("dd-MM-yyyy")
@@ -43,12 +40,6 @@ class MyWinsAdapter(private val context: Context, val productEntityList: List<Us
             countryName.text = output
             matchName.text = "${productEntity.correct_answers}/ ${productEntity.NumberOfquestion}"
             scoreNumber.text = "${productEntity.total_points} pts"
-           /* countryFlag.setImageDrawable(ContextCompat.getDrawable(context, productEntity.getYear()!!))
-            itemView.setOnClickListener {
-                val iValidate = Intent(context, CountryWisePackActivity::class.java)
-                iValidate.putExtra("CountryName", productEntity.getTitle())
-                context.startActivity(iValidate)
-            }*/
         }
     }
 

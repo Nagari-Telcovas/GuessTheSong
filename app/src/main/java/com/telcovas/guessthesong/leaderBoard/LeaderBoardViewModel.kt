@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 class LeaderBoardViewModel(private val apiHelper: ApiHelper
 ) : ViewModel() {
 
-    private val uiState = MutableLiveData<UiState<List<LeaderBoardOutput>>>()
+    private val uiState = MutableLiveData<UiState<LeaderBoardOutput>>()
 
     init {
         fetchLeaders("LeaderBoard")
@@ -30,7 +30,7 @@ class LeaderBoardViewModel(private val apiHelper: ApiHelper
         }
     }
 
-    fun getUiState(): LiveData<UiState<List<LeaderBoardOutput>>> {
+    fun getUiState(): LiveData<UiState<LeaderBoardOutput>>{
         return uiState
     }
 

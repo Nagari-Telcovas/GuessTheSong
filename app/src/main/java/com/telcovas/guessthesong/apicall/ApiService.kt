@@ -14,7 +14,7 @@ interface ApiService {
     suspend fun getSongQuestionList(@Query("reportType") reportType: String): List<QuizList>
 
     @GET("LoginServlet?")
-    suspend fun getLeaderBoardList(@Query("reportType") reportType: String): List<LeaderBoardOutput>
+    suspend fun getLeaderBoardList(@Query("reportType") reportType: String): LeaderBoardOutput
 
     @GET("LoginServlet?")
     suspend fun getuserPoints(@Query("reportType") reportType: String,@Query("msisdn") msisdn: String): MyWinsOutput
