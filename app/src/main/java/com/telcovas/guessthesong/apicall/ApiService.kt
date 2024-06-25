@@ -24,7 +24,7 @@ interface ApiService {
 
     @GET("LoginServlet?")
     suspend fun getLogin(@Query("reportType") reportType: String,@Query("msisdn") msisdn: String,@Query("password") password: String): LoginResponse
-    @GET("InsertingUserDetails?")
+    @GET("SongQuestionList?")
     suspend fun insertQuizDetails(@Query("reportType") reportType: String,
                                   @Query("user_id") user_id: String,
                                   @Query("question_id") question_id: String

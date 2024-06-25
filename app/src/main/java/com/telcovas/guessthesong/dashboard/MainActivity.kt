@@ -160,7 +160,12 @@ class MainActivity : ComponentActivity(), SongClickListener {
 
         }
         submitButton.setOnClickListener {
-
+            pause = false
+            stopSound()
+            if(timerStarted) {
+                timer?.cancel()
+                timerStarted=false
+            }
             if (selectedOptionType != "0") {
                var ques_id= quizlist.get(qnumber).question_id
                 var totalmb=qnumber+1
