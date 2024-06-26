@@ -21,6 +21,7 @@
             android:textSize="@dimen/_15ssp"
             android:padding="@dimen/_10sdp"
             android:gravity="center"
+            android:visibility="invisible"
             android:layout_marginTop="@dimen/_20sdp"
             android:textColor="@color/yellow_bg"/>
 

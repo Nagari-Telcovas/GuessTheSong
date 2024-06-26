@@ -73,11 +73,11 @@ class MainActivity : ComponentActivity(), SongClickListener {
     var correctAnsList = ArrayList<Int>()
     private var isAnswered:Boolean = false
 
-    var lmilliseconds: Long = 60000
+    var lmilliseconds: Long = 30000
     private lateinit var viewModel: MainViewModel
 
     lateinit  var context:Context
-
+    var points=0
     lateinit var quizlist:List<QuizList>
     var question_status="processing"
     //lateinit  var Loggedinmsisdn:String
@@ -126,10 +126,10 @@ class MainActivity : ComponentActivity(), SongClickListener {
             }
         }
 
-        reloadSong.setOnClickListener {
+       /* reloadSong.setOnClickListener {
           // playAudio()
             playSound()
-        }
+        }*/
 
         skipButton.setOnClickListener {
             // try {
@@ -139,7 +139,9 @@ class MainActivity : ComponentActivity(), SongClickListener {
                 if (qnumber > user.response.size)
                     qnumber = user.response.size
                 progressbar_id.progress = qnumber
-                percentData.text = qnumber.toString() + "/" + user.response.size.toString()
+
+            var songnumber=qnumber+1
+                percentData.text = songnumber.toString() + "/" + user.response.size.toString()
                 Log.e("submit11", ":" + qnumber)
 
 
@@ -169,6 +171,8 @@ class MainActivity : ComponentActivity(), SongClickListener {
 
         }
         submitButton.setOnClickListener {
+
+
             pause = false
             stopSound()
             if(timerStarted) {
@@ -183,14 +187,30 @@ class MainActivity : ComponentActivity(), SongClickListener {
 
 
                 if (selectedOptionType ==quizlist[qnumber].correctOption) {
+                    points=points+100
                     question_status="processing"
                     correctAnsList.add(qnumber)
+
+                    ques_id = quizlist.get(qnumber).question_id
+                    totalmb = qnumber+1
+                    type = totalmb.toString() + "MB"
+                    Log.e("qnumer",":"+qnumber)
+                    Log.e("quizlist",":"+quizlist.size)
+
+                    if(qnumber==quizlist.size)
+                        question_status="completed"
                 } else {
                     question_status="completed"
+                    if(qnumber==0)
+                        ques_id = quizlist.get(qnumber).question_id
+                    else
+                       ques_id = quizlist.get(qnumber - 1).question_id
+                    totalmb = qnumber + 1
+                    type = totalmb.toString() + "MB"
                     showDialog(this, correctAnsList.size,false)
 
                 }
-                if(qnumber==0)
+                /*if(qnumber==0)
                 {
                     ques_id = quizlist.get(qnumber).question_id
                     totalmb = qnumber+1
@@ -199,9 +219,9 @@ class MainActivity : ComponentActivity(), SongClickListener {
                     ques_id = quizlist.get(qnumber - 1).question_id
                     totalmb = qnumber + 1
                     type = totalmb.toString() + "MB"
-                }
+                }*/
                 Log.e("Loggedinmsisdn", ":" + Constants.Loggedinmsisdn)
-                viewModel.updateQuiz("InsertingUserDetails",Constants.Loggedinmsisdn.trim(),ques_id,selectedOptionType,"100",question_status,type)
+                viewModel.updateQuiz("InsertingUserDetails",Constants.Loggedinmsisdn.trim(),ques_id,selectedOptionType,points.toString(),question_status,type)
 
             } else {
                 Toast.makeText(this, "Please select the Answer!!", Toast.LENGTH_SHORT).show()
@@ -256,11 +276,13 @@ class MainActivity : ComponentActivity(), SongClickListener {
     private fun moveToNextSong()
     {
 
+
             qnumber++
             if (qnumber > quizlist.size)
                 qnumber = quizlist.size
             progressbar_id.progress = qnumber
-            percentData.text = qnumber.toString() + "/" + quizlist.size.toString()
+        var songnumber=qnumber+1
+            percentData.text = songnumber.toString() + "/" + quizlist.size.toString()
             Log.e("submit11", ":" + qnumber)
 
            /* if (selectedOptionType ==quizlist[qnumber - 1].correctOption) {
@@ -296,10 +318,16 @@ class MainActivity : ComponentActivity(), SongClickListener {
                     timer?.cancel()
                     timerStarted=false
                 }
-                if (mediaPlayer.isPlaying) {
+                try {
+                    if (mediaPlayer.isPlaying) {
 
-                    mediaPlayer.stop()
-                    mediaPlayer.release()
+                        mediaPlayer.stop()
+                        mediaPlayer.release()
+                    }
+                }
+                catch (e:Exception)
+                {
+
                 }
                 //Log.d("Correct Answers", correctAnsList.size)
                 showDialog(this, correctAnsList.size,false)
@@ -563,33 +591,47 @@ class MainActivity : ComponentActivity(), SongClickListener {
         val text_msg = view.findViewById<TextView>(R.id.text_msg)
         val text_points = view.findViewById<TextView>(R.id.text_points)
 
-
+        val dialogConfirmText = view.findViewById<TextView>(R.id.dialogConfirmText)
 
 
 
        // messageSelectedText.text = "Your Score is ${correctAnswer}/5"
         if(isFinish) {
             messageSelectedText.visibility = View.VISIBLE
-            text_msg.text = "Sorry, the answer is incorrect. Redeem XXMB or Continue to win XXGB!"
+            text_msg.text = "Sorry, the answer is incorrect. Redeem 0 MB amount of data!"
             text_msg.visibility= View.VISIBLE
         }
        else if(correctAnswer<5)
         {
            // val wans=5-correctAnswer
-            val wans=100*qnumber
-           // text_msg.text = "You have given ${wans} wrong answers but"
-            text_msg.text = "Sorry, the answer is incorrect. You won ${wans} MB amount of data!"
+           // val wans=100*qnumber
+            var wans=  "XX MB"
+            //if(qnumber==0)
+             //   wans=  "0 MB"
+            // text_msg.text = "You have given ${wans} wrong answers but"
+            text_msg.text = "Sorry, the answer is incorrect. You won ${wans}  amount of data!"
             text_msg.visibility= View.VISIBLE
            // text_points.text = "You Got 50 Points"
         }
+        else
+        {
+            dialogConfirmText.visibility= View.VISIBLE
+            messageSelectedText.text = "You have completed the quiz"
+            messageSelectedText.visibility = View.VISIBLE
 
+             text_msg.text = "You Got ${correctAnswer} out of 5"
+
+            text_msg.visibility= View.VISIBLE
+            // text_points.text = "You Got 50 Points"
+        }
 
         builder.setView(view)
         button.setOnClickListener {
             builder.dismiss()
-            val inLogin = Intent(context, PurchasePacksActivity::class.java)
+           /* val inLogin = Intent(context, PurchasePacksActivity::class.java)
             startActivity(inLogin)
-            finish()
+            finish()*/
+            showSubscribeDialog(context)
         }
         exitbutton.setOnClickListener {
             builder.dismiss()
@@ -608,6 +650,42 @@ class MainActivity : ComponentActivity(), SongClickListener {
         }*/
 
     }
+
+    private fun showSubscribeDialog(context: Context,) {
+        val builder = AlertDialog.Builder(this).create()
+        val view = layoutInflater.inflate(R.layout.dialog_complete,null)
+        val  button = view.findViewById<TextView>(R.id.submittv)
+        val  exitbutton = view.findViewById<TextView>(R.id.exittv)
+        val messageSelectedText = view.findViewById<TextView>(R.id.messageSelectedText)
+        val text_msg = view.findViewById<TextView>(R.id.text_msg)
+
+        button.text="Subscribe"
+        exitbutton.text="Cancel"
+
+            messageSelectedText.visibility = View.GONE
+            text_msg.text = "Click Subscribe to play again from Question no XX"
+            text_msg.visibility= View.VISIBLE
+
+
+        builder.setView(view)
+        button.setOnClickListener {
+            builder.dismiss()
+            val inLogin = Intent(context, QuizMenuActivity::class.java)
+            startActivity(inLogin)
+            finish()
+        }
+        exitbutton.setOnClickListener {
+            builder.dismiss()
+            val inLogin = Intent(context, QuizMenuActivity::class.java)
+            startActivity(inLogin)
+            finish()
+        }
+        builder.setCanceledOnTouchOutside(false)
+        builder.show()
+
+
+    }
+
 
     override fun onSelectClicked(optionName: String?, type: String?) {
         selectedOptionType = type!!
@@ -691,7 +769,8 @@ class MainActivity : ComponentActivity(), SongClickListener {
                    // renderList(it.data)
                     quizlist=it.data
                     progressbar_id.max=quizlist.size
-                    percentData.text=qnumber.toString()+"/"+quizlist.size.toString()
+                   var songnumber=qnumber+1
+                    percentData.text=songnumber.toString()+"/"+quizlist.size.toString()
                     setUpQuizAdapterData(it.data)
                     startTimer()
                 }

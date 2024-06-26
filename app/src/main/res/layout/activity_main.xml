@@ -108,10 +108,11 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/playSong"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/play_song"
         android:layout_marginTop="@dimen/_5sdp"
+
         android:layout_marginLeft="@dimen/_10sdp"
         app:layout_constraintTop_toBottomOf="@+id/songProgress"
         app:layout_constraintStart_toEndOf="@+id/songImage"/>
@@ -122,6 +123,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/pause_song"
         android:padding="@dimen/_5sdp"
+        android:visibility="gone"
         android:layout_marginTop="@dimen/_5sdp"
         app:layout_constraintTop_toBottomOf="@+id/songProgress"
         app:layout_constraintLeft_toRightOf="@+id/playSong"
@@ -133,6 +135,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/play_refresh"
         android:padding="@dimen/_5sdp"
+        android:visibility="gone"
         android:layout_marginTop="@dimen/_5sdp"
         app:layout_constraintTop_toBottomOf="@+id/songProgress"
         app:layout_constraintEnd_toEndOf="parent"
