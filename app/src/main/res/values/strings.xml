@@ -17,7 +17,8 @@
     <string name="yourWins">Your Wins</string>
     <string name="quizName">QuizName/Code</string>
     <string name="score">Score</string>
-    <string name="totalPlays">Total Plays</string>
+    <string name="totalPlays">Total Played</string>
+    <string name="yourRank">Your Rank</string>
     <string name="standings">Standings</string>
 
     <!--  Login  -->
@@ -72,4 +73,15 @@
     <string name="exit_text">Do you want to quit?</string>
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
+
+    <!--  Quiz Rules  -->
+    <string name="quizRule">Quiz Rules</string>
+    <string name="quizRuleTitle">Some Rules of this Quiz</string>
+    <string name="ruleHeading1">1. The game consists of 15 questions, with each question increasing in difficulty and prize value.</string>
+    <string name="ruleHeading2">2. You have 30 seconds to answer each question.</string>
+    <string name="ruleHeading3">3. Selected answers cannot be changed.</string>
+    <string name="ruleHeading4">4. No points for wrong answers.</string>
+    <string name="ruleHeading5">5. There are two guaranteed prize levels after 5th and 10th questions.</string>
+    <string name="exitQuiz">Exit Quiz</string>
+    <string name="continueQuiz">Continue</string>
 </resources>
