@@ -38,7 +38,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
 
                 CommonMethods.setSharedPreference(this, "countryCode", "+${bindingScreen.countryPicker.selectedCountryCode}")
                 CommonMethods.setSharedPreference(this, "msisdn", bindingScreen.phoneNumberOtp.text.toString())
-                viewModel.fetchLogin("userLogin", "+${bindingScreen.countryPicker.selectedCountryCode} ${bindingScreen.phoneNumberOtp.text.toString()}", "telcovas")
+              //  viewModel.fetchLogin("userLogin", "+${bindingScreen.countryPicker.selectedCountryCode} ${bindingScreen.phoneNumberOtp.text.toString()}", "telcovas")
+                viewModel.fetchLogin("userLogin", Constants.Loggedinmsisdn.trim(), "telcovas")
+
             }
         }
         setupViewModel()

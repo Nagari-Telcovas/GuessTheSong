@@ -39,6 +39,7 @@ import com.telcovas.guessthesong.myWines.MyWinsActivity
 import com.telcovas.guessthesong.purchasePacks.PurchasePacksActivity
 import com.telcovas.guessthesong.quizMenu.QuizMenuActivity
 import com.telcovas.guessthesong.utils.Constants
+import com.telcovas.guessthesong.utils.LoadingUtils
 import de.hdodenhof.circleimageview.CircleImageView
 
 class MainActivity : ComponentActivity(), SongClickListener {
@@ -160,7 +161,7 @@ class MainActivity : ComponentActivity(), SongClickListener {
                         mediaPlayer.release()
                     }
                     //Log.d("Correct Answers", correctAnsList.size)
-                    showDialog(this, correctAnsList.size)
+                    showDialog(this, correctAnsList.size,false)
                 }
                 selectedOptionType="0"
 
@@ -186,7 +187,7 @@ class MainActivity : ComponentActivity(), SongClickListener {
                     correctAnsList.add(qnumber)
                 } else {
                     question_status="completed"
-                    showDialog(this, correctAnsList.size)
+                    showDialog(this, correctAnsList.size,false)
 
                 }
                 if(qnumber==0)
@@ -200,7 +201,7 @@ class MainActivity : ComponentActivity(), SongClickListener {
                     type = totalmb.toString() + "MB"
                 }
                 Log.e("Loggedinmsisdn", ":" + Constants.Loggedinmsisdn)
-                viewModel.updateQuiz("InsertingUserDetails",Constants.Loggedinmsisdn,ques_id,selectedOptionType,"100",question_status,type)
+                viewModel.updateQuiz("InsertingUserDetails",Constants.Loggedinmsisdn.trim(),ques_id,selectedOptionType,"100",question_status,type)
 
             } else {
                 Toast.makeText(this, "Please select the Answer!!", Toast.LENGTH_SHORT).show()
@@ -237,7 +238,7 @@ class MainActivity : ComponentActivity(), SongClickListener {
           //  progressbar_id.max=user.response.size
           //  percentData.text=qnumber.toString()+"/"+user.response.size.toString()
 
-            startTimer()
+
             setupViewModel()
 
             onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
@@ -301,7 +302,7 @@ class MainActivity : ComponentActivity(), SongClickListener {
                     mediaPlayer.release()
                 }
                 //Log.d("Correct Answers", correctAnsList.size)
-                showDialog(this, correctAnsList.size)
+                showDialog(this, correctAnsList.size,false)
             }
             selectedOptionType="0"
             //  val intentSubmit = Intent(this, PurchasePacksActivity::class.java)
@@ -356,7 +357,7 @@ class MainActivity : ComponentActivity(), SongClickListener {
                 mediaPlayer.release()
             }
             //Log.d("Correct Answers", correctAnsList.size)
-            showDialog(this, correctAnsList.size)
+            showDialog(this, correctAnsList.size,false)
         }
         selectedOptionType="0"
         //  val intentSubmit = Intent(this, PurchasePacksActivity::class.java)
@@ -386,7 +387,7 @@ class MainActivity : ComponentActivity(), SongClickListener {
                         timer?.cancel()
                         timerStarted = false
                     }
-                    showDialog(context, correctAnsList.size)
+                    showDialog(context, correctAnsList.size,true)
                    // moveToNextSong()
 
                 }
@@ -553,7 +554,7 @@ class MainActivity : ComponentActivity(), SongClickListener {
 
     }
 
-    private fun showDialog(context: Context, correctAnswer: Int) {
+    private fun showDialog(context: Context, correctAnswer: Int,isFinish:Boolean) {
         val builder = AlertDialog.Builder(this).create()
         val view = layoutInflater.inflate(R.layout.dialog_complete,null)
         val  button = view.findViewById<TextView>(R.id.submittv)
@@ -567,8 +568,12 @@ class MainActivity : ComponentActivity(), SongClickListener {
 
 
        // messageSelectedText.text = "Your Score is ${correctAnswer}/5"
-
-        if(correctAnswer<5)
+        if(isFinish) {
+            messageSelectedText.visibility = View.VISIBLE
+            text_msg.text = "Sorry, the answer is incorrect. Redeem XXMB or Continue to win XXGB!"
+            text_msg.visibility= View.VISIBLE
+        }
+       else if(correctAnswer<5)
         {
            // val wans=5-correctAnswer
             val wans=100*qnumber
@@ -577,6 +582,7 @@ class MainActivity : ComponentActivity(), SongClickListener {
             text_msg.visibility= View.VISIBLE
            // text_points.text = "You Got 50 Points"
         }
+
 
         builder.setView(view)
         button.setOnClickListener {
@@ -679,6 +685,7 @@ class MainActivity : ComponentActivity(), SongClickListener {
         viewModel.getUiState().observe(this) {
             when (it) {
                 is UiState.Success -> {
+                    LoadingUtils.hideDialog()
                     Log.e("success",":"+it.data)
                    // progressBar.visibility = View.GONE
                    // renderList(it.data)
@@ -686,13 +693,16 @@ class MainActivity : ComponentActivity(), SongClickListener {
                     progressbar_id.max=quizlist.size
                     percentData.text=qnumber.toString()+"/"+quizlist.size.toString()
                     setUpQuizAdapterData(it.data)
+                    startTimer()
                 }
                 is UiState.Loading -> {
+                    LoadingUtils.showDialog(this@MainActivity,true)
                     Log.e("Loading",":1")
                  //   progressBar.visibility = View.VISIBLE
 
                 }
                 is UiState.Error -> {
+                    LoadingUtils.hideDialog()
                     //Handle Error
                    // progressBar.visibility = View.GONE
                     Log.e("Error",":roor"+it.message)
@@ -705,6 +715,7 @@ class MainActivity : ComponentActivity(), SongClickListener {
             when(it)
             {
                 is UiState.Success -> {
+                    LoadingUtils.hideDialog()
                     Log.e("success",":"+it.data)
                     // progressBar.visibility = View.GONE
                     // renderList(it.data)
@@ -719,6 +730,7 @@ class MainActivity : ComponentActivity(), SongClickListener {
 
                 }
                 is UiState.Error -> {
+                    LoadingUtils.hideDialog()
                     //Handle Error
                     // progressBar.visibility = View.GONE
                     Log.e("Error",":roor"+it.message)
