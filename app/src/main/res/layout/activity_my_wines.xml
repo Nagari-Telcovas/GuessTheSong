@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/button_bg"
-        app:cardCornerRadius="@dimen/_10sdp"
+        app:cardCornerRadius="@dimen/_12sdp"
         android:layout_margin="@dimen/_15sdp"
         app:layout_constraintTop_toBottomOf="@+id/toolbarLayout">
 
@@ -41,7 +41,7 @@
                 android:text=""
                 app:layout_constraintLeft_toRightOf="@+id/demoPhoto"
                 android:fontFamily="@font/kavoon"
-                android:textColor="@color/black"
+                android:textColor="@color/yellow_bg"
                 android:textSize="@dimen/_15sdp"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
@@ -103,14 +103,14 @@
                 android:id="@+id/totalWins"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shape_circle"
+                android:background="@drawable/shape_circle_voilet"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:text=""
                 android:padding="@dimen/_5sdp"
                 android:gravity="center"
                 android:fontFamily="@font/kavoon"
                 android:textSize="@dimen/_16sdp"
-                android:textColor="@color/black"
+                android:textColor="@color/yellow_bg"
                 app:layout_constraintTop_toBottomOf="@+id/winesText"
                 app:layout_constraintLeft_toLeftOf="@+id/winesText"
                 app:layout_constraintRight_toRightOf="@+id/winesText"/>

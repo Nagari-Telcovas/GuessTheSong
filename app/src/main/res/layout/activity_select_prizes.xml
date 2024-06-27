@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_full_img"
+    tools:context=".selectPrizes.SelectPrizesActivity">
+
+    <include
+        android:id="@+id/toolbarLayout"
+        layout="@layout/toolbar_title" />
+
+    <RelativeLayout
+        android:id="@+id/playQuizLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarLayout">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_80sdp"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:background="@drawable/button_bg">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/totalQuizText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_35sdp"
+                android:fontFamily="@font/kavoon"
+                android:padding="@dimen/_20sdp"
+                android:gravity="center"
+                android:text="@string/playQuizType"
+                android:textColor="@color/whiteOrDark"
+                android:textSize="@dimen/_18ssp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/trophyPhoto"
+            android:layout_width="@dimen/_85sdp"
+            android:layout_height="@dimen/_85sdp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_40sdp"
+            android:src="@drawable/app_logo" />
+    </RelativeLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/forDataText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_28sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:background="@drawable/shape_login_edit"
+        android:paddingStart="@dimen/_45sdp"
+        android:paddingTop="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_10sdp"
+        android:text="@string/forData"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14ssp"
+        app:fontFamily="@font/kavoon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/playQuizLayout" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_22sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:background="@drawable/shape_circle"
+        android:padding="@dimen/_2sdp"
+        android:src="@drawable/img_data"
+        app:layout_constraintRight_toRightOf="@+id/forDataText"
+        app:layout_constraintTop_toBottomOf="@+id/playQuizLayout" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/forMobileText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:background="@drawable/shape_login_edit"
+        android:paddingStart="@dimen/_45sdp"
+        android:paddingTop="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_10sdp"
+        android:text="@string/forMobile"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14ssp"
+        app:fontFamily="@font/kavoon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/forDataText" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_14sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:background="@drawable/shape_circle"
+        android:padding="@dimen/_2sdp"
+        android:src="@drawable/img_mobile"
+        app:layout_constraintRight_toRightOf="@+id/forMobileText"
+        app:layout_constraintTop_toBottomOf="@+id/forDataText" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/forHeadsetText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:background="@drawable/shape_login_edit"
+        android:paddingStart="@dimen/_45sdp"
+        android:paddingTop="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_10sdp"
+        android:text="@string/headset"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14ssp"
+        app:fontFamily="@font/kavoon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/forMobileText" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_14sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:background="@drawable/shape_circle"
+        android:padding="@dimen/_2sdp"
+        android:src="@drawable/img_headset"
+        app:layout_constraintRight_toRightOf="@+id/forHeadsetText"
+        app:layout_constraintTop_toBottomOf="@+id/forMobileText" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/submitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_45sdp"
+        android:background="@drawable/button_bg"
+        android:gravity="center"
+        android:paddingStart="@dimen/_45sdp"
+        android:paddingTop="@dimen/_8sdp"
+        android:paddingEnd="@dimen/_45sdp"
+        android:paddingBottom="@dimen/_8sdp"
+        android:text="@string/submit_name"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_15sdp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/forHeadsetText" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -84,4 +84,10 @@
     <string name="ruleHeading5">5. There are two guaranteed prize levels after 5th and 10th questions.</string>
     <string name="exitQuiz">Exit Quiz</string>
     <string name="continueQuiz">Continue</string>
+
+    <!--  Quiz Types  -->
+    <string name="playQuizType">What would you like to play the quiz for?</string>
+    <string name="forData">For Data</string>
+    <string name="forMobile">For Mobile</string>
+    <string name="headset">HeadSet</string>
 </resources>

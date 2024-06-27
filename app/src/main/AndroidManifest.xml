@@ -16,6 +16,9 @@
         android:theme="@style/Theme.GuessTheSong"
         tools:targetApi="31">
         <activity
+            android:name=".selectPrizes.SelectPrizesActivity"
+            android:exported="false" />
+        <activity
             android:name=".quizRules.QuizRulesActivity"
             android:exported="false" />
         <activity

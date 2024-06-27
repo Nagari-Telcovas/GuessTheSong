@@ -11,7 +11,9 @@
     <color name="body_bg">#580055 </color>
     <color name="brownColor">#580000</color>
     <color name="button_bg">#FF0000</color>
+    <color name="light_red">#FF4155</color>
     <color name="yellow_bg">#FFE500 </color>
+    <color name="colorVoilet">#930796</color>
     <color name="song_bg">#C58BC3</color>
     <color name="lightPinkColor">#FFD6FD</color>
     <color name="darkPinkColor">#C58B8B</color>

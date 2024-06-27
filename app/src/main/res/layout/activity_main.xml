@@ -76,7 +76,7 @@
         android:layout_centerVertical="true"
         android:layout_marginTop="@dimen/_10sdp"
         android:text="@string/guessTheSong"
-        android:textColor="@color/white"
+        android:textColor="@color/yellow_bg"
         android:textSize="@dimen/_15ssp"
         app:fontFamily="@font/kavoon"
         app:layout_constraintLeft_toLeftOf="parent"
