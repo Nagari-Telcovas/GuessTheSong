@@ -9,8 +9,8 @@ import com.telcovas.guessthesong.myWines.MyWinsOutput
 
 interface ApiHelper {
 
-    suspend fun getSongQuestionList(reportType:String): List<QuizList>
-    suspend fun getLeaderBoardList(reportType:String): LeaderBoardOutput
+    suspend fun getSongQuestionList(reportType:String,type:String): List<QuizList>
+    suspend fun getLeaderBoardList(reportType:String,msisdn:String): LeaderBoardOutput
     suspend fun getTotalPlayers(reportType:String): List<QuizList>
 
     suspend fun getuserPoints(reportType:String,msisdn:String): MyWinsOutput

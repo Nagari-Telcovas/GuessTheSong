@@ -15,6 +15,7 @@ class QuizMenuActivity : BaseActivity<ActivityQuizMenuBinding>(ActivityQuizMenuB
         bindingScreen.quizes.setOnClickListener {
             var inItem = Intent(this, QuizRulesActivity::class.java)
             startActivity(inItem)
+            finish()
         }
 
         bindingScreen.wines.setOnClickListener {

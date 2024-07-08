@@ -11,10 +11,10 @@ import retrofit2.http.Query
 interface ApiService {
 
     @GET("SongQuestionList?")
-    suspend fun getSongQuestionList(@Query("reportType") reportType: String): List<QuizList>
+    suspend fun getSongQuestionList(@Query("reportType") reportType: String,@Query("type") type: String): List<QuizList>
 
     @GET("LoginServlet?")
-    suspend fun getLeaderBoardList(@Query("reportType") reportType: String): LeaderBoardOutput
+    suspend fun getLeaderBoardList(@Query("reportType") reportType: String, @Query("msisdn") msisdn: String): LeaderBoardOutput
 
     @GET("LoginServlet?")
     suspend fun getuserPoints(@Query("reportType") reportType: String,@Query("msisdn") msisdn: String): MyWinsOutput

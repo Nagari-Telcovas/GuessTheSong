@@ -2,8 +2,10 @@ package com.telcovas.guessthesong.dashboard
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.media.AudioManager
 import android.media.MediaPlayer
+import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
@@ -20,6 +22,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.content.pm.PackageInfoCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -86,6 +89,19 @@ class MainActivity : ComponentActivity(), SongClickListener {
         context=this
         setContentView(R.layout.activity_main)
        // Loggedinmsisdn= CommonMethods.getSharedPreference(this, "countryCode")+""+CommonMethods.getSharedPreference(this, "mobileNumber")
+
+
+        val packageManager = context.packageManager
+        val packageName = context.packageName
+        val packageInfo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            packageManager.getPackageInfo(packageName, PackageManager.PackageInfoFlags.of(0))
+        } else {
+            packageManager.getPackageInfo(packageName, 0)
+        }
+       val appvnumber= packageInfo.versionName
+        val appvercode=PackageInfoCompat.getLongVersionCode(packageInfo)
+
+
 
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         submitButton = findViewById(R.id.submitButton)
@@ -196,9 +212,13 @@ class MainActivity : ComponentActivity(), SongClickListener {
                     type = totalmb.toString() + "MB"
                     Log.e("qnumer",":"+qnumber)
                     Log.e("quizlist",":"+quizlist.size)
+                    Log.e("totalmb",":"+totalmb)
+                    if(totalmb==quizlist.size) {
+                        question_status = "completed"
+                        showDialog(this, correctAnsList.size,false)
+                    }
 
-                    if(qnumber==quizlist.size)
-                        question_status="completed"
+                    Log.e("question_status",":"+question_status)
                 } else {
                     question_status="completed"
                     if(qnumber==0)
@@ -280,7 +300,9 @@ class MainActivity : ComponentActivity(), SongClickListener {
             qnumber++
             if (qnumber > quizlist.size)
                 qnumber = quizlist.size
-            progressbar_id.progress = qnumber
+
+      //  progressbar_id.progress = qnumber
+        progressbar_id.progress = progressbar_id.progress+1
         var songnumber=qnumber+1
             percentData.text = songnumber.toString() + "/" + quizlist.size.toString()
             Log.e("submit11", ":" + qnumber)
@@ -611,7 +633,7 @@ class MainActivity : ComponentActivity(), SongClickListener {
             // text_msg.text = "You have given ${wans} wrong answers but"
             text_msg.text = "Sorry, the answer is incorrect. You won ${wans}  amount of data!"
             text_msg.visibility= View.VISIBLE
-           // text_points.text = "You Got 50 Points"
+            text_points.text = "Please click Continue to play again"
         }
         else
         {
@@ -619,9 +641,12 @@ class MainActivity : ComponentActivity(), SongClickListener {
             messageSelectedText.text = "You have completed the quiz"
             messageSelectedText.visibility = View.VISIBLE
 
-             text_msg.text = "You Got ${correctAnswer} out of 5"
+          //   text_msg.text = "You Got ${correctAnswer} out of 5"
+            text_msg.text = "You Won the "+ Constants.selectedPrizeOption
 
             text_msg.visibility= View.VISIBLE
+            button.visibility=View.GONE
+            exitbutton.text="Redeem"
             // text_points.text = "You Got 50 Points"
         }
 
@@ -711,6 +736,31 @@ class MainActivity : ComponentActivity(), SongClickListener {
             mediaPlayer = MediaPlayer.create(this, R.raw.howfarisitto)
         else if(audioUrl.equals("daretowin"))
             mediaPlayer = MediaPlayer.create(this, R.raw.daretowin)
+        else if(audioUrl.equals("dancinginthestardust"))
+            mediaPlayer = MediaPlayer.create(this, R.raw.dancinginthestardust)
+        else if(audioUrl.equals("escapethedark"))
+            mediaPlayer = MediaPlayer.create(this, R.raw.escapethedark)
+        else if(audioUrl.equals("justslowdown"))
+            mediaPlayer = MediaPlayer.create(this, R.raw.justslowdown)
+        else if(audioUrl.equals("murdermystery"))
+            mediaPlayer = MediaPlayer.create(this, R.raw.murdermystery)
+        else if(audioUrl.equals("walkingdownthestreet"))
+            mediaPlayer = MediaPlayer.create(this, R.raw.walkingdownthestreet)
+
+        else if(audioUrl.equals("rememberingyou"))
+            mediaPlayer = MediaPlayer.create(this, R.raw.rememberingyou)
+
+        else if(audioUrl.equals("theseaiscalling"))
+            mediaPlayer = MediaPlayer.create(this, R.raw.theseaiscalling)
+        else if(audioUrl.equals("justchill"))
+            mediaPlayer = MediaPlayer.create(this, R.raw.justchill)
+        else if(audioUrl.equals("dieforyoucold"))
+            mediaPlayer = MediaPlayer.create(this, R.raw.dieforyoucold)
+
+        else if(audioUrl.equals("tooromantic"))
+            mediaPlayer = MediaPlayer.create(this, R.raw.tooromantic)
+
+
         mediaPlayer!!.isLooping = true
         mediaPlayer!!.start()
         // } else mediaPlayer!!.start()
@@ -768,6 +818,7 @@ class MainActivity : ComponentActivity(), SongClickListener {
                    // progressBar.visibility = View.GONE
                    // renderList(it.data)
                     quizlist=it.data
+                    progressbar_id.progress = 1
                     progressbar_id.max=quizlist.size
                    var songnumber=qnumber+1
                     percentData.text=songnumber.toString()+"/"+quizlist.size.toString()

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.telcovas.guessthesong.apicall.ApiHelper
 import com.telcovas.guessthesong.apicall.UiState
+import com.telcovas.guessthesong.utils.Constants
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val apiHelper: ApiHelper
@@ -16,14 +17,14 @@ class MainViewModel(private val apiHelper: ApiHelper
     private val responseState = MutableLiveData<UiState<InsertQuizResponse>>()
 
     init {
-        fetchUsers("questionList")
+        fetchUsers("questionList",Constants.selectedPrizeOption)
     }
 
-    private fun fetchUsers(reporrtType:String) {
+    private fun fetchUsers(reporrtType:String,type:String) {
         viewModelScope.launch {
             uiState.postValue(UiState.Loading)
             try {
-                val usersFromApi = apiHelper.getSongQuestionList(reporrtType)
+                val usersFromApi = apiHelper.getSongQuestionList(reporrtType,type)
 
                 uiState.postValue(UiState.Success(usersFromApi))
             } catch (e: Exception) {

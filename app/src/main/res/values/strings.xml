@@ -77,7 +77,7 @@
     <!--  Quiz Rules  -->
     <string name="quizRule">Quiz Rules</string>
     <string name="quizRuleTitle">Some Rules of this Quiz</string>
-    <string name="ruleHeading1">1. The game consists of 5 songs, with each song increasing prize value will be increased.</string>
+    <string name="ruleHeading1">1. Each category will consist of 5 songs, and with every correct answer, the difficulty level will increase.</string>
     <string name="ruleHeading2">2. You have 30 seconds to answer each song.</string>
     <string name="ruleHeading3">3. Selected answers cannot be changed.</string>
     <string name="ruleHeading4">4. No points for wrong answers.</string>
@@ -87,7 +87,7 @@
 
     <!--  Quiz Types  -->
     <string name="playQuizType">What would you like to play the quiz for?</string>
-    <string name="forData">For Data</string>
-    <string name="forMobile">For Mobile</string>
-    <string name="headset">HeadSet</string>
+    <string name="forData">Data</string>
+    <string name="forMobile">Mobile</string>
+    <string name="headset">Headset</string>
 </resources>

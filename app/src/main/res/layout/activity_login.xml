@@ -97,7 +97,7 @@
                 android:fontFamily="@font/kavoon"
                 android:hint="@string/phoneNumber"
                 android:inputType="number"
-                android:text="9032364590"
+                android:text=""
                 android:maxLength="14"
                 android:paddingTop="@dimen/_12sdp"
                 android:paddingBottom="@dimen/_12sdp"
