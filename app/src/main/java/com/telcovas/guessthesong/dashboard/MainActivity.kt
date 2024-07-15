@@ -631,7 +631,10 @@ class MainActivity : ComponentActivity(), SongClickListener {
             //if(qnumber==0)
              //   wans=  "0 MB"
             // text_msg.text = "You have given ${wans} wrong answers but"
+            if(Constants.selectedPrizeOption=="Data")
             text_msg.text = "Sorry, the answer is incorrect. You won ${wans}  amount of data!"
+            else
+                text_msg.text = "Sorry, the answer is incorrect."
             text_msg.visibility= View.VISIBLE
             text_points.text = "Please click Continue to play again"
         }
@@ -687,8 +690,12 @@ class MainActivity : ComponentActivity(), SongClickListener {
         button.text="Subscribe"
         exitbutton.text="Cancel"
 
+
             messageSelectedText.visibility = View.GONE
-            text_msg.text = "Click Subscribe to play again from Question no XX"
+           // text_msg.text = "Click Subscribe to play again from Question no XX"
+        var qno=qnumber+1
+
+        text_msg.text = "Click Subscribe to play again from Question no "+qno
             text_msg.visibility= View.VISIBLE
 
 

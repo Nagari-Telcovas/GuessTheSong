@@ -55,7 +55,7 @@ class LeaderBoardActivity : BaseActivity<ActivityLeaderBoardBinding>(ActivityLea
                     if (it.data.rank.isNotEmpty())
                         totalRank.text = it.data.rank
                     else
-                        totalRank.text = "01"
+                        totalRank.text = "0"
                     localAdapter = LeaderBoardAdapter(this, leaderBoardList)
                     selectScoreList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
                     selectScoreList.itemAnimator = DefaultItemAnimator()

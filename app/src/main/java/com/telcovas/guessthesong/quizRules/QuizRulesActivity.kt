@@ -15,5 +15,9 @@ class QuizRulesActivity : BaseActivity<ActivityQuizRulesBinding>(ActivityQuizRul
             startActivity(Intent(this, SelectPrizesActivity::class.java))
             finish()
         }
+        bindingScreen.exitQuiz.setOnClickListener {
+            finish()
+        }
+
     }
 }

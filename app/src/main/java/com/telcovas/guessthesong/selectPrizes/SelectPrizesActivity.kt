@@ -39,9 +39,16 @@ class SelectPrizesActivity : BaseActivity<ActivitySelectPrizesBinding>(ActivityS
         }
         bindingScreen.submitButton.setOnClickListener {
            // selectedPrizeOption=selectedOption
-            CommonMethods.showMessage(this, selectedOption)
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
+            if(selectedOption.isEmpty())
+            {
+                CommonMethods.showMessage(this, "Please select one option")
+
+            }
+            else {
+                CommonMethods.showMessage(this, selectedOption)
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            }
         }
     }
 }
